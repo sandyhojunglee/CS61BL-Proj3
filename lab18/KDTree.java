@@ -3,11 +3,15 @@ import java.util.List;
 public class KDTree implements PointSet {
 
     // TODO: Instance variables here!
+    List<Point> list;
+    int treeHeight;
 
     /* Constructs a KDTree using POINTS. You can assume POINTS contains at least one
        Point object. */
     public KDTree(List<Point> points) {
         // TODO: YOUR CODE HERE
+        list = points;
+        treeHeight = 0;
     }
 
     /*
@@ -16,16 +20,23 @@ public class KDTree implements PointSet {
     Think of what arguments you might want insert to take in. If you need
     inspiration, take a look at how we do BST insertion!
 
-    private KDTreeNode insert(...) {
-        ...
+    */
+
+    private KDTreeNode insert(Point p) {
+
     }
 
-    */
+
 
     /* Returns the closest Point to the inputted X and Y coordinates. This method
        should run in O(log N) time on average, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
         // TODO: YOUR CODE HERE
+        Point insert = new Point(x, y);
+        if (list.isEmpty()) {
+            return insert;
+        }
+        if (treeHeight)
         return null;
     }
 
