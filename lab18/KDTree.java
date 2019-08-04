@@ -1,14 +1,34 @@
 import java.util.List;
+import java.util.Comparator;
 
-public class KDTree implements PointSet {
 
-    // TODO: Instance variables here!
+public class KDTree<Point extends Comparable<Point>> implements PointSet {
+
+    List<Point> points;
+    KDTreeNode root;
+
 
     /* Constructs a KDTree using POINTS. You can assume POINTS contains at least one
        Point object. */
     public KDTree(List<Point> points) {
-        // TODO: YOUR CODE HERE
+        this.points = points;
+        for (Point point : points) {
+            insert(this.root, point);
+        }
     }
+
+    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point) {
+        if (kdTreeNode == null) {
+            kdTreeNode = new KDTreeNode(point);
+        } else if (point.compareTo(kdTreeNode.point) < 0) {
+            insert(kdTreeNode.left, point);
+        } else if (point.compareTo(kdTreeNode.point) > 0) {
+            insert(kdTreeNode.right, point);
+        }
+        return kdTreeNode;
+    }
+
+
 
     /*
 
