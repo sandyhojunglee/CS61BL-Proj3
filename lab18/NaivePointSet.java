@@ -1,28 +1,23 @@
 import java.util.List;
 
 public class NaivePointSet implements PointSet {
-    // TODO: Instance variables here!
-    List<Point> list;
-
+    public List<Point> points;
     /* Constructs a NaivePointSet using POINTS. You can assume POINTS contains at
        least one Point object. */
     public NaivePointSet(List<Point> points) {
-        // TODO: YOUR CODE HERE
-        list = points;
+       this.points = points;
     }
 
     /* Returns the closest Point to the inputted X and Y coordinates. This method
        should run in Theta(N) time, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
-        // TODO: YOUR CODE HERE
-        Point input = new Point(x, y);
-        Point closest = new Point(0,0);
-        double shortest = 1000000.0;
-        for (Point p :list){
-            double compare = Point.distance(p, input);
-            if (compare < shortest) {
-                shortest = compare;
-                closest = p;
+        Point given = new Point(x, y);
+        Point closest = points.get(0);
+        double distance = Point.distance(given, closest);
+        for (Point point : points) {
+            if (distance > Point.distance(given, point)) {
+                closest = point;
+                distance = Point.distance(given, point);
             }
         }
         return closest;
