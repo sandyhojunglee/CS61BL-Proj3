@@ -30,14 +30,18 @@ public class KDTree implements PointSet {
             //if true: compare x vlaues
         } else if (bool) {
             if (point.getX() - kdTreeNode.point.getX() < 0) {
+                treeHeight ++;
                 kdTreeNode.left = insert(kdTreeNode.left, point, false);
             } else if (point.getX() - kdTreeNode.point.getX() > 0) {
+                treeHeight++;
                 kdTreeNode.right = insert(kdTreeNode.right, point, false);
             }
         } else {
             if (point.getY() - kdTreeNode.point.getY() < 0) {
+                treeHeight ++;
                 kdTreeNode.left = insert(kdTreeNode.left, point, true);
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
+                treeHeight ++;
                 kdTreeNode.right = insert(kdTreeNode.right, point, true);
             }
         }
@@ -51,9 +55,7 @@ public class KDTree implements PointSet {
         Point insert = new Point(x, y);
         KDTreeNode n = this.root;
         //idk if this is right
-        KDTreeNode best = new KDTreeNode(insert);
-        double bestDistance;
-
+        
 
 
 
@@ -69,7 +71,9 @@ public class KDTree implements PointSet {
         return points.get(1);
     }
 
-
+    public Point nearestHelper(KDTreeNode n, Point goal, Point best) {
+        return null;
+    }
 
     private class KDTreeNode {
 
