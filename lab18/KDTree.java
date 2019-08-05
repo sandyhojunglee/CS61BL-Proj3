@@ -36,7 +36,7 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
         if (this.root == null) {
             return null;
         }
-        if (this.)
+        if (//current node.distance(goal))
         return null;
     }
 
