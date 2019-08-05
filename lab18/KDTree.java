@@ -1,7 +1,7 @@
-import java.util.List;
 import java.util.Comparator;
+import java.util.List;
 
-public class KDTree<Point extends Comparable<Point>> implements PointSet {
+public class KDTree implements PointSet {
 
     List<Point> points;
     KDTreeNode root;
@@ -12,18 +12,34 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
     public KDTree(List<Point> points) {
         this.points = points;
         for (Point point : points) {
-            insert(this.root, point);
+            root = insert(this.root, point, true);
         }
-        treeHeight = 0;
     }
 
-    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point) {
+    /*
+
+    You might find this insert helper method useful when constructing your KDTree!
+    Think of what arguments you might want insert to take in. If you need
+    inspiration, take a look at how we do BST insertion!
+
+    */
+
+    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean bool) {
         if (kdTreeNode == null) {
             kdTreeNode = new KDTreeNode(point);
-        } else if (point.compareTo(kdTreeNode.point) < 0) {
-            insert(kdTreeNode.left, point);
-        } else if (point.compareTo(kdTreeNode.point) > 0) {
-            insert(kdTreeNode.right, point);
+            //if true: compare x vlaues
+        } else if (bool) {
+            if (point.getX() - kdTreeNode.point.getX() < 0) {
+                kdTreeNode.left = insert(kdTreeNode.left, point, false);
+            } else if (point.getX() - kdTreeNode.point.getX() > 0) {
+                kdTreeNode.right = insert(kdTreeNode.right, point, false);
+            }
+        } else {
+            if (point.getY() - kdTreeNode.point.getY() < 0) {
+                kdTreeNode.left = insert(kdTreeNode.left, point, true);
+            } else if (point.getY() - kdTreeNode.point.getY() > 0) {
+                kdTreeNode.right = insert(kdTreeNode.right, point, true);
+            }
         }
         return kdTreeNode;
     }
@@ -33,12 +49,27 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
     public Point nearest(double x, double y) {
         // TODO: YOUR CODE HERE
         Point insert = new Point(x, y);
-        if (this.root == null) {
-            return null;
-        }
-        if (//current node.distance(goal))
-        return null;
+        KDTreeNode n = this.root;
+        //idk if this is right
+        KDTreeNode best = new KDTreeNode(insert);
+        double bestDistance;
+
+
+
+
+        // find distance from root to given point
+        // set this distance as "best"
+        // choose which side to traverse on tree:
+        //  choose left if "given" point is less than current roote / best distaance
+        // find new distnce
+        // if new distance < bewDist, replace best distance with new distance
+        // keep exploring "good" children
+
+
+        return points.get(1);
     }
+
+
 
     private class KDTreeNode {
 
@@ -50,6 +81,8 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
 
         KDTreeNode(Point p) {
             this.point = p;
+            this.left = null;
+            this.right = null;
         }
 
         KDTreeNode(Point p, KDTreeNode left, KDTreeNode right) {
