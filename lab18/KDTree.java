@@ -41,10 +41,10 @@ public class KDTree implements PointSet {
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
                 insert(kdTreeNode.right, point, false);
             }
+
         }
         return kdTreeNode;
     }
-
 
     /* Returns the closest Point to the inputted X and Y coordinates. This method
        should run in O(log N) time on average, where N is the number of POINTS. */
@@ -63,6 +63,7 @@ public class KDTree implements PointSet {
 
 
         return points.get(1);
+
     }
 
 
