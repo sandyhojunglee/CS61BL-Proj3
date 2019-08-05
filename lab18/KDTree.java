@@ -1,7 +1,7 @@
-import java.util.List;
 import java.util.Comparator;
+import java.util.List;
 
-public class KDTree<Point extends Comparable<Point>> implements PointSet {
+public class KDTree implements PointSet {
 
     List<Point> points;
     KDTreeNode root;
@@ -12,23 +12,10 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
     public KDTree(List<Point> points) {
         this.points = points;
         for (Point point : points) {
-            insert(this.root, point);
+            root = insert(this.root, point, true);
         }
         treeHeight = 0;
     }
-
-    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point) {
-        if (kdTreeNode == null) {
-            kdTreeNode = new KDTreeNode(point);
-        } else if (point.compareTo(kdTreeNode.point) < 0) {
-            insert(kdTreeNode.left, point);
-        } else if (point.compareTo(kdTreeNode.point) > 0) {
-            insert(kdTreeNode.right, point);
-        }
-        return kdTreeNode;
-    }
-
-
 
     /*
 
@@ -38,23 +25,47 @@ public class KDTree<Point extends Comparable<Point>> implements PointSet {
 
     */
 
-    private KDTreeNode insert(Point p) {
-
+    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean bool) {
+        if (kdTreeNode == null) {
+            kdTreeNode = new KDTreeNode(point);
+            //if true: compare x vlaues
+        } else if (bool) {
+            if (point.getX() - kdTreeNode.point.getX() < 0) {
+                insert(kdTreeNode.left, point, false);
+            } else if (point.getX() - kdTreeNode.point.getX() > 0) {
+                insert(kdTreeNode.right, point, false);
+            }
+        } else {
+            if (point.getY() - kdTreeNode.point.getY() < 0) {
+                insert(kdTreeNode.left, point, false);
+            } else if (point.getY() - kdTreeNode.point.getY() > 0) {
+                insert(kdTreeNode.right, point, false);
+            }
+        }
+        return kdTreeNode;
     }
-
 
 
     /* Returns the closest Point to the inputted X and Y coordinates. This method
        should run in O(log N) time on average, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
         // TODO: YOUR CODE HERE
-        Point insert = new Point(x, y);
-        if (list.isEmpty()) {
-            return insert;
-        }
-        if (treeHeight)
-        return null;
+        Point given = new Point(x, y);
+        double bestDistance;
+
+        // find distance from root to given point
+        // set this distance as "best"
+        // choose which side to traverse on tree:
+        //  choose left if "given" point is less than current roote / best distaance
+        // find new distnce
+        // if new distance < bewDist, replace best distance with new distance
+        // keep exploring "good" children
+
+
+        return points.get(1);
     }
+
+
 
     private class KDTreeNode {
 
