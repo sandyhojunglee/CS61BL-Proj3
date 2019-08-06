@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 import java.util.Collections;
-=======
 import java.util.ArrayList;
->>>>>>> e6149e360f4582623b89962cabde35b67ce52198
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
