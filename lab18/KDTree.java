@@ -78,6 +78,10 @@ public class KDTree implements PointSet {
         if (distanceN < distanceBest) {
             best = n.point();
         }
+        if (comparePoints(goal, n.point, n.orientation) < 0) {
+            goodside = n.left;
+            badside = n.right;
+        }
     }
 
     private class KDTreeNode {
@@ -122,6 +126,9 @@ public class KDTree implements PointSet {
         }
 
         // If you want to add any more methods, put them here!
+        int comparePoints(Point p, Point n, Boolean orientation) {
+            return 
+        }
 
     }
 }
