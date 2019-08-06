@@ -1,7 +1,11 @@
+import java.util.Collections;
 import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import static java.util.Collections.swap;
 
 public class Sorts {
 
@@ -11,18 +15,24 @@ public class Sorts {
 
     /* Returns the result of sorting the values in LIST using insertion sort. */
     public static void insertionSort(List<Integer> list) {
-
-        for (int i = 1; i < list.size(); i ++) {
-            int key = list.get(i);
-            int j = i - 1;
-
-            while (j >= 0 && list.get(j) > key) {
-                list.set(j+1, list.get(j));
-                j--;
+        // TODO: YOUR CODE HERE\
+        for (int i = 1; i < list.size(); i++) {
+            for (int j = i; j > 0 && list.get(j) < list.get(j-1); j-- ) {
+                Collections.swap(list, j, j-1);
             }
-
-            list.set(j+1, key);
         }
+//        //Annie's
+//        for (int i = 1; i < list.size(); i ++) {
+//            int key = list.get(i);
+//            int j = i - 1;
+//
+//            while (j >= 0 && list.get(j) > key) {
+//                list.set(j+1, list.get(j));
+//                j--;
+//            }
+//
+//            list.set(j+1, key);
+//        }
 
     }
 
@@ -55,6 +65,7 @@ public class Sorts {
 
     private static void quickSort(List<Integer> list, int start, int end, Random generator) {
         // Below are example of how to use the random number generator. You will
+
         // need to do this in your code somehow
         int pivotIndex = generator.nextInt((end - start)) + start;
 
@@ -80,11 +91,31 @@ public class Sorts {
         list.addAll(leftList);
         list.addAll(centerList);
         list.addAll(rightList);
+
     }
 
     /* Returns the result of sorting the values in this list using merge
        sort. */
     public static void mergeSort(List<Integer> list) {
+    // TODO: YOUR CODE HERE (You may use a helper function if you wish.)
+
+//Sandy's
+
+//        if (list.size() == 1) {
+////            int mid = (1 + list.size()) / 2;
+////            //List<Integer> firstHalf = mergeSortHelper(list, 0, mid);
+////            //List<Integer> lastHalf = mergeSortHelper(list, mid + 1, list.size() - 1);
+////            //firstHalf.addAll(lastHalf);
+//            return;
+//        }
+//        mergeSortHelper(list, 0, list.size());
+//    }
+//    private static List<Integer> mergeSortHelper(List<Integer> list, int start, int end) {
+//        if (list.size() > 1){
+//            int mid = (list.size() + 1) / 2;
+//
+//            mergeSortHelper(list, 0, mid);
+//            mergeSortHelper(list, mid + 1, list.size());
         int size = list.size();
         if (size <= 1) {
             return;

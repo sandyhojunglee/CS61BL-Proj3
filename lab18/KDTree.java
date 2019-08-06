@@ -5,6 +5,7 @@ public class KDTree implements PointSet {
 
     List<Point> points;
     KDTreeNode root;
+
     final boolean horizontal = false;
     final boolean vertical = true;
 
@@ -49,7 +50,6 @@ public class KDTree implements PointSet {
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
                 kdTreeNode.right = insert(kdTreeNode.right, point, !orientation,true);
             }
-
         }
         return kdTreeNode;
     }
@@ -84,16 +84,22 @@ public class KDTree implements PointSet {
 
     }
 
+    public Point nearestHelper(KDTreeNode n, Point goal, Point best) {
+        ...
+        double distanceN = Point.distance(goal, n.point());
+        double distanceBest = Point.distance(goal, best);
 
-    // find distance from root to given point
-    // set this distance as "best"
-    // choose which side to traverse on tree:
-    //  choose left if "given" point is less than current roote / best distaance
-    // find new distnce
-    // if new distance < bewDist, replace best distance with new distance
-    // keep exploring "good" children
+        KDTreeNode goodside;
+        KDTreeNode badside;
 
-
+        if (distanceN < distanceBest) {
+            best = n.point();
+        }
+        if (comparePoints(goal, n.point, n.orientation) < 0) {
+            goodside = n.left;
+            badside = n.right;
+        }
+    }
 
     private class KDTreeNode {
 
@@ -106,6 +112,9 @@ public class KDTree implements PointSet {
 
         KDTreeNode(Point p) {
             this.point = p;
+            this.left = null;
+            this.right = null;
+            this.orientation = true;
         }
 
         KDTreeNode(Point p, KDTreeNode left, KDTreeNode right) {
@@ -116,6 +125,8 @@ public class KDTree implements PointSet {
 
         KDTreeNode(Point p, boolean orientation) {
             this.point = p;
+            this.left = null;
+            this.right = null;
             this.orientation = orientation;
         }
 
@@ -132,6 +143,9 @@ public class KDTree implements PointSet {
         }
 
         // If you want to add any more methods, put them here!
+        int comparePoints(Point p, Point n, Boolean orientation) {
+            return
+        }
 
     }
 }
