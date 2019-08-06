@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class SortsTest {
 
-    private static final int NUM_ITEMS_TO_SORT = 100;
+    private static final int NUM_ITEMS_TO_SORT = 4;
     private static final int RANDOM_SEED = 500;
 
     private static List<Integer> generateRandomList(int N, boolean isLinkedList) {
