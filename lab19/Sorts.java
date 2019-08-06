@@ -1,11 +1,7 @@
 import java.util.Collections;
 import java.util.ArrayList;
-
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import static java.util.Collections.swap;
 
 public class Sorts {
 
@@ -17,8 +13,8 @@ public class Sorts {
     public static void insertionSort(List<Integer> list) {
         // TODO: YOUR CODE HERE\
         for (int i = 1; i < list.size(); i++) {
-            for (int j = i; j > 0 && list.get(j) < list.get(j-1); j-- ) {
-                Collections.swap(list, j, j-1);
+            for (int j = i; j > 0 && list.get(j) < list.get(j - 1); j--) {
+                Collections.swap(list, j,j - 1);
             }
         }
 //        //Annie's
@@ -35,8 +31,6 @@ public class Sorts {
 //        }
 
     }
-
-
 
     /* Returns the result of sorting the values in LIST using selection sort. */
     public static void selectionSort(List<Integer> list) {
@@ -88,6 +82,8 @@ public class Sorts {
 //
 //            mergeSortHelper(list, 0, mid);
 //            mergeSortHelper(list, mid + 1, list.size());
+
+//Annie's
         int size = list.size();
         if (size <= 1) {
             return;
@@ -95,10 +91,10 @@ public class Sorts {
         List<Integer> a = new ArrayList<>();
         List<Integer> b = new ArrayList<>();
 
-        for (int x = 0; x < size/2; x ++) {
+        for (int x = 0; x < size/2; x++) {
             a.add(0);
         }
-        for (int x = 0; x < size-size/2; x ++) {
+        for (int x = 0; x < size - size/2; x++) {
             b.add(0);
         }
 
@@ -114,24 +110,11 @@ public class Sorts {
         mergeSort(b);
 
         merge(a, b, list);
-
-        //sort(list, 0, list.size()-1);
     }
-
-//    public static void sort(List<Integer> list, int start, int end) {
-//        if (start < end) {
-//            int middle = (start + end) / 2;
-//
-//            sort(list, start, middle);
-//            sort(list, middle + 1, end);
-//
-//            merge(list, start, middle, end);
-//        }
-//    }
 
     public static void merge(List<Integer> a, List<Integer> b, List<Integer> list) {
         List<Integer> c = new ArrayList<>();
-        for (int x = 0; x < a.size()+b.size(); x ++) {
+        for (int x = 0; x < a.size() + b.size(); x++) {
             c.add(0);
         }
         int i = 0;
@@ -147,67 +130,8 @@ public class Sorts {
                 c.set(k, b.get(j++));
             }
         }
-
         for(int k = 0; k < c.size(); k++) {
             list.set(k, c.get(k));
         }
     }
-
-
-//    public static void merge(List<Integer> list, int start, int middle, int end) {
-//        int firstArray;
-//        int secondArray;
-//        int mergedArray;
-//        int firstHalf = middle - start + 1;
-//        int secondHalf = end - middle;
-//
-//        List<Integer> temp1 = new ArrayList<>();
-//        List<Integer> temp2 = new ArrayList<>();
-//        for (int x = 0; x < firstHalf; x ++) {
-//            temp1.add(0);
-//        }
-//        for (int x = 0; x < secondHalf; x ++) {
-//            temp2.add(0);
-//        }
-//
-//
-//        for (firstArray = 0; firstArray < firstHalf; firstArray++) {
-//            temp1.set(firstArray, list.get(start + firstArray));
-//        }
-//
-//        for (secondArray = 0; secondArray < secondHalf; secondArray++) {
-//            temp2.set(secondArray, list.get(middle + 1 + secondArray));
-//        }
-//        firstArray = 0;
-//        secondArray = 0;
-//        mergedArray = 1;
-//
-//        while (firstArray < firstHalf && secondArray < secondHalf) {
-//            if (temp1.get(firstArray) <= temp2.get(secondArray)) {
-//                list.set(mergedArray, temp1.get(firstArray));
-//                firstArray++;
-//            }
-//            else {
-//                list.set(mergedArray, temp2.get(secondArray));
-//                secondArray++;
-//            }
-//            mergedArray++;
-//        }
-//
-//        while (firstArray < firstHalf) {
-//            list.set(mergedArray, temp1.get(firstArray));
-//            firstArray++;
-//            mergedArray++;
-//        }
-//
-//        while (secondArray < secondHalf) {
-//            list.set(mergedArray, temp2.get(secondArray));
-//            secondArray++;
-//            mergedArray++;
-//        }
-//
-//
-//    }
-
-
 }
