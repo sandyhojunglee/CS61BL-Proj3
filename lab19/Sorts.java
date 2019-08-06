@@ -44,15 +44,42 @@ public class Sorts {
     /* Returns the result of sorting the values in this list using quicksort. */
     public static void quickSort(List<Integer> list) {
         generator = new Random(RANDOM_SEED);
-        quickSort(null, -1, -1); // FIXME
+
+        if (list.size() <= 1) {
+            return;
+        }
+        quickSort(list, 0, list.size() - 1, generator);
+
+
     }
 
-    private static void quickSort(List<Integer> list, int start, int end) {
+    private static void quickSort(List<Integer> list, int start, int end, Random generator) {
         // Below are example of how to use the random number generator. You will
-        // need to do this in your code somehow!
-        generator.nextDouble();
-        generator.nextInt(30);
-        // TODO: YOUR CODE HERE
+        // need to do this in your code somehow
+        int pivotIndex = generator.nextInt((end - start)) + start;
+
+        List<Integer> leftList = new ArrayList<>();
+        List<Integer> rightList = new ArrayList<>();
+        List<Integer> centerList = new ArrayList<>();
+
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) < list.get(pivotIndex)) {
+                leftList.add(list.get(i));
+            } else if (list.get(i) > list.get(pivotIndex)) {
+                rightList.add(list.get(i));
+            } else {
+                centerList.add(list.get(i));
+            }
+        }
+
+        quickSort(leftList);
+        quickSort(rightList);
+
+        list.clear();
+        list.addAll(leftList);
+        list.addAll(centerList);
+        list.addAll(rightList);
     }
 
     /* Returns the result of sorting the values in this list using merge
