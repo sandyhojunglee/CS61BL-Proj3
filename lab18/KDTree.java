@@ -127,7 +127,7 @@ public class KDTree implements PointSet {
 
         // If you want to add any more methods, put them here!
         int comparePoints(Point p, Point n, Boolean orientation) {
-            return 
+            return
         }
 
     }
