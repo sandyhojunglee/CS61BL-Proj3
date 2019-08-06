@@ -51,9 +51,9 @@ public class KDTree implements PointSet {
        should run in O(log N) time on average, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
         // TODO: YOUR CODE HERE
-        Point insert = new Point(x, y);
-        KDTreeNode n = this.root;
-        KDTreeNode best = new KDTreeNode();
+//        Point insert = new Point(x, y);
+//        KDTreeNode n = this.root;
+//        KDTreeNode best = new KDTreeNode();
         // find distance from root to given point
         // set this distance as "best"
         // choose which side to traverse on tree:
@@ -61,17 +61,23 @@ public class KDTree implements PointSet {
         // find new distance
         // if new distance < bewDist, replace best distance with new distance
         // keep exploring "good" children
-        if (this.root == null) {
-            return null;
-        }
-        if (Point.distance(n.point, insert) < Point.distance(best.point, insert))
 
-
-        return points.get(1);
+        Point goal = new Point(x, y);
+        Point n = root.point();
+        return nearestHelper(root, goal, n);
     }
 
     public Point nearestHelper(KDTreeNode n, Point goal, Point best) {
-        return null;
+        ...
+        double distanceN = Point.distance(goal, n.point());
+        double distanceBest = Point.distance(goal, best);
+
+        KDTreeNode goodside;
+        KDTreeNode badside;
+
+        if (distanceN < distanceBest) {
+            best = n.point();
+        }
     }
 
     private class KDTreeNode {
