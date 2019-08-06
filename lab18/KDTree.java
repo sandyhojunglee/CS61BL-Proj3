@@ -5,7 +5,8 @@ public class KDTree implements PointSet {
 
     List<Point> points;
     KDTreeNode root;
-    int treeHeight;
+    final boolean horizontal;
+    final boolean vertical;
 
     /* Constructs a KDTree using POINTS. You can assume POINTS contains at least one
        Point object. */
@@ -14,6 +15,8 @@ public class KDTree implements PointSet {
         for (Point point : points) {
             root = insert(this.root, point, true);
         }
+        horizontal = false;
+        vertical = true;
     }
 
     /*
@@ -26,22 +29,18 @@ public class KDTree implements PointSet {
 
     private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean bool) {
         if (kdTreeNode == null) {
-            kdTreeNode = new KDTreeNode(point);
+            kdTreeNode = new KDTreeNode(point, !kdTreeNode.orientation);
             //if true: compare x vlaues
         } else if (bool) {
             if (point.getX() - kdTreeNode.point.getX() < 0) {
-                treeHeight ++;
                 kdTreeNode.left = insert(kdTreeNode.left, point, false);
             } else if (point.getX() - kdTreeNode.point.getX() > 0) {
-                treeHeight++;
                 kdTreeNode.right = insert(kdTreeNode.right, point, false);
             }
         } else {
             if (point.getY() - kdTreeNode.point.getY() < 0) {
-                treeHeight ++;
                 kdTreeNode.left = insert(kdTreeNode.left, point, true);
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
-                treeHeight ++;
                 kdTreeNode.right = insert(kdTreeNode.right, point, true);
             }
         }
@@ -54,18 +53,18 @@ public class KDTree implements PointSet {
         // TODO: YOUR CODE HERE
         Point insert = new Point(x, y);
         KDTreeNode n = this.root;
-        //idk if this is right
-        
-
-
-
+        KDTreeNode best = new KDTreeNode();
         // find distance from root to given point
         // set this distance as "best"
         // choose which side to traverse on tree:
-        //  choose left if "given" point is less than current roote / best distaance
-        // find new distnce
+        // choose left if "given" point is less than current root / best distance
+        // find new distance
         // if new distance < bewDist, replace best distance with new distance
         // keep exploring "good" children
+        if (this.root == null) {
+            return null;
+        }
+        if (Point.distance(n.point, insert) < Point.distance(best.point, insert))
 
 
         return points.get(1);
@@ -80,6 +79,7 @@ public class KDTree implements PointSet {
         private Point point;
         private KDTreeNode left;
         private KDTreeNode right;
+        private boolean orientation;
 
         // If you want to add any more instance variables, put them here!
 
@@ -87,12 +87,20 @@ public class KDTree implements PointSet {
             this.point = p;
             this.left = null;
             this.right = null;
+            this.orientation = true;
         }
 
         KDTreeNode(Point p, KDTreeNode left, KDTreeNode right) {
             this.point = p;
             this.left = left;
             this.right = right;
+        }
+
+        KDTreeNode(Point p, boolean orientation) {
+            this.point = p;
+            this.left = null;
+            this.right = null;
+            this.orientation = orientation;
         }
 
         Point point() {
