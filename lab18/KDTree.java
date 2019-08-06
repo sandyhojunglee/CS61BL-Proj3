@@ -5,16 +5,24 @@ public class KDTree implements PointSet {
 
     List<Point> points;
     KDTreeNode root;
-    int treeHeight;
+    final boolean horizontal = false;
+    final boolean vertical = true;
+
 
     /* Constructs a KDTree using POINTS. You can assume POINTS contains at least one
        Point object. */
     public KDTree(List<Point> points) {
         this.points = points;
+
         for (Point point : points) {
-            root = insert(this.root, point, true);
+            if (point == points.get(0)) {
+                root = new KDTreeNode(point, horizontal);
+            }
+            else {
+                insert(this.root, point, horizontal, true);
+            }
+
         }
-        treeHeight = 0;
     }
 
     /*
@@ -25,21 +33,21 @@ public class KDTree implements PointSet {
 
     */
 
-    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean bool) {
+    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean orientation, Boolean bool) {
         if (kdTreeNode == null) {
-            kdTreeNode = new KDTreeNode(point);
+            kdTreeNode = new KDTreeNode(point, orientation);
             //if true: compare x vlaues
         } else if (bool) {
             if (point.getX() - kdTreeNode.point.getX() < 0) {
-                insert(kdTreeNode.left, point, false);
+                kdTreeNode.left = insert(kdTreeNode.left, point, !orientation, false);
             } else if (point.getX() - kdTreeNode.point.getX() > 0) {
-                insert(kdTreeNode.right, point, false);
+                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, false);
             }
         } else {
             if (point.getY() - kdTreeNode.point.getY() < 0) {
-                insert(kdTreeNode.left, point, false);
+                kdTreeNode.left = insert(kdTreeNode.left, point, !orientation, true);
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
-                insert(kdTreeNode.right, point, false);
+                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation,true);
             }
 
         }
@@ -49,22 +57,41 @@ public class KDTree implements PointSet {
     /* Returns the closest Point to the inputted X and Y coordinates. This method
        should run in O(log N) time on average, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
-        // TODO: YOUR CODE HERE
         Point given = new Point(x, y);
-        double bestDistance;
 
-        // find distance from root to given point
-        // set this distance as "best"
-        // choose which side to traverse on tree:
-        //  choose left if "given" point is less than current roote / best distaance
-        // find new distnce
-        // if new distance < bewDist, replace best distance with new distance
-        // keep exploring "good" children
-
-
-        return points.get(1);
+        return nearestHelper(root, given, root.point);
 
     }
+
+    public Point nearestHelper(KDTreeNode current, Point given, Point best) {
+
+        double bestDistance = Point.distance(given, best);
+        double currentDistance = Point.distance(given, best);
+
+        if (current.orientation == horizontal) {
+            Point newPoint = new Point(best.getX(), given.getY());
+            double darkDistance = Point.distance(given, newPoint);
+            if (darkDistance < bestDistance) {
+                return nearestHelper()
+            }
+
+        } else {
+            Point newPoint = new Point(given.getX(), best.getY());
+
+        }
+
+        return new Point(1, 2);
+
+    }
+
+
+    // find distance from root to given point
+    // set this distance as "best"
+    // choose which side to traverse on tree:
+    //  choose left if "given" point is less than current roote / best distaance
+    // find new distnce
+    // if new distance < bewDist, replace best distance with new distance
+    // keep exploring "good" children
 
 
 
@@ -73,6 +100,7 @@ public class KDTree implements PointSet {
         private Point point;
         private KDTreeNode left;
         private KDTreeNode right;
+        private boolean orientation;
 
         // If you want to add any more instance variables, put them here!
 
@@ -84,6 +112,11 @@ public class KDTree implements PointSet {
             this.point = p;
             this.left = left;
             this.right = right;
+        }
+
+        KDTreeNode(Point p, boolean orientation) {
+            this.point = p;
+            this.orientation = orientation;
         }
 
         Point point() {
