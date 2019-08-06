@@ -47,12 +47,10 @@ public class Sorts {
 
     }
 
-    private static void quickSort(List<Integer> list, int start, int end, Random generator) {
-
+    private static void quickSort(List<Integer> list, int start, int end, Random gen) {
         // Below are example of how to use the random number generator. You will
-
         // need to do this in your code somehow
-        int pivotIndex = generator.nextInt((end - start)) + start;
+        int pivotIndex = gen.nextInt((end - start)) + start;
 
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
@@ -89,10 +87,10 @@ public class Sorts {
         List<Integer> a = new ArrayList<>();
         List<Integer> b = new ArrayList<>();
 
-        for (int x = 0; x < size/2; x++) {
+        for (int x = 0; x < size / 2; x++) {
             a.add(0);
         }
-        for (int x = 0; x < size - size/2; x++) {
+        for (int x = 0; x < size - size / 2; x++) {
             b.add(0);
         }
 
@@ -101,7 +99,7 @@ public class Sorts {
         }
 
         for (int i = 0; i < b.size(); i++) {
-            b.set(i, list.get(i + size/2));
+            b.set(i, list.get(i + size / 2));
         }
 
         mergeSort(a);
@@ -128,7 +126,7 @@ public class Sorts {
                 c.set(k, b.get(j++));
             }
         }
-        for(int k = 0; k < c.size(); k++) {
+        for (int k = 0; k < c.size(); k++) {
             list.set(k, c.get(k));
         }
     }
