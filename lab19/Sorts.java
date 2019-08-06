@@ -1,11 +1,9 @@
 import java.util.Collections;
 import java.util.ArrayList;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static java.util.Collections.swap;
 
 public class Sorts {
 
@@ -54,6 +52,12 @@ public class Sorts {
     /* Returns the result of sorting the values in this list using quicksort. */
     public static void quickSort(List<Integer> list) {
 
+        generator = new Random(RANDOM_SEED);
+
+        if (list.size() <= 1) {
+            return;
+        }
+
         quickSort(list, 0, list.size() - 1, generator);
 
 
@@ -61,11 +65,6 @@ public class Sorts {
 
     private static void quickSort(List<Integer> list, int start, int end, Random generator) {
 
-        generator = new Random(RANDOM_SEED);
-
-        if (list.size() <= 1) {
-            return;
-        }
         // Below are example of how to use the random number generator. You will
 
         // need to do this in your code somehow
