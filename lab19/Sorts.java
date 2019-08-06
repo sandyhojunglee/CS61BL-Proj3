@@ -11,10 +11,9 @@ public class Sorts {
 
     /* Returns the result of sorting the values in LIST using insertion sort. */
     public static void insertionSort(List<Integer> list) {
-        // TODO: YOUR CODE HERE\
         for (int i = 1; i < list.size(); i++) {
             for (int j = i; j > 0 && list.get(j) < list.get(j - 1); j--) {
-                Collections.swap(list, j,j - 1);
+                Collections.swap(list, j, j - 1);
             }
         }
 //        //Annie's
@@ -93,8 +92,6 @@ public class Sorts {
     /* Returns the result of sorting the values in this list using merge
        sort. */
     public static void mergeSort(List<Integer> list) {
-    // TODO: YOUR CODE HERE (You may use a helper function if you wish.)
-
 //Sandy's
 
 //        if (list.size() == 1) {
