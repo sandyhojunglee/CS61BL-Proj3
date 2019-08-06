@@ -63,16 +63,29 @@ public class KDTree implements PointSet {
 
     }
 
-    public Point nearestHelper(KDTreeNode current, Point given, Point best) {
+    public Point nearestHelper(KDTreeNode current, Point goal, Point best) {
+        if (current == null) {
+            return best;
+        }
 
-        double bestDistance = Point.distance(given, best);
-        double currentDistance = Point.distance(given, best);
+        double currentDistance = Point.distance(goal, current.point());
+        double bestDistance = Point.distance(goal, best);
+
+        KDTreeNode goodSide;
+        KDTreeNode badSide;
+
+        if (currentDistance < bestDistance) {
+            best = current.point;
+        }
+        if (goal)
+
+
 
         if (current.orientation == horizontal) {
-            Point newPoint = new Point(best.getX(), given.getY());
-            double darkDistance = Point.distance(given, newPoint);
+            Point newPoint = new Point(best.getX(), goal.getY());
+            double darkDistance = Point.distance(goal, newPoint);
             if (darkDistance < bestDistance) {
-                return nearestHelper()
+                //return nearestHelper();
             }
 
         } else {
@@ -84,22 +97,6 @@ public class KDTree implements PointSet {
 
     }
 
-    public Point nearestHelper(KDTreeNode n, Point goal, Point best) {
-        ...
-        double distanceN = Point.distance(goal, n.point());
-        double distanceBest = Point.distance(goal, best);
-
-        KDTreeNode goodside;
-        KDTreeNode badside;
-
-        if (distanceN < distanceBest) {
-            best = n.point();
-        }
-        if (comparePoints(goal, n.point, n.orientation) < 0) {
-            goodside = n.left;
-            badside = n.right;
-        }
-    }
 
     private class KDTreeNode {
 
@@ -144,7 +141,7 @@ public class KDTree implements PointSet {
 
         // If you want to add any more methods, put them here!
         int comparePoints(Point p, Point n, Boolean orientation) {
-            return
+            return 0;
         }
 
     }

@@ -87,6 +87,7 @@ public class Sorts {
         if (size <= 1) {
             return;
         }
+
         List<Integer> a = new ArrayList<>();
         List<Integer> b = new ArrayList<>();
 
@@ -129,8 +130,7 @@ public class Sorts {
                 c.set(k, b.get(j++));
             }
         }
-        for(int k = 0; k < c.size(); k++) {
-            list.set(k, c.get(k));
-        }
+        list.clear();
+        list.addAll(c);
     }
 }
