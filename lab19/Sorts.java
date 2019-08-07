@@ -16,7 +16,7 @@ public class Sorts {
     public static void insertionSort(List<Integer> list) {
         for (int i = 1; i < list.size(); i++) {
             for (int j = i; j > 0 && list.get(j) < list.get(j - 1); j--) {
-                Collections.swap(list, j,j - 1);
+                Collections.swap(list, j, j - 1);
             }
         }
     }
@@ -47,12 +47,10 @@ public class Sorts {
 
     }
 
-    private static void quickSort(List<Integer> list, int start, int end, Random generator) {
-
+    private static void quickSort(List<Integer> list, int start, int end, Random gen) {
         // Below are example of how to use the random number generator. You will
-
         // need to do this in your code somehow
-        int pivotIndex = generator.nextInt((end - start)) + start;
+        int pivotIndex = gen.nextInt((end - start)) + start;
 
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
@@ -82,7 +80,6 @@ public class Sorts {
     /* Returns the result of sorting the values in this list using merge
        sort. */
     public static void mergeSort(List<Integer> list) {
-
         int size = list.size();
         if (size <= 1) {
             return;
@@ -91,10 +88,10 @@ public class Sorts {
         List<Integer> a = new ArrayList<>();
         List<Integer> b = new ArrayList<>();
 
-        for (int x = 0; x < size/2; x++) {
+        for (int x = 0; x < size / 2; x++) {
             a.add(0);
         }
-        for (int x = 0; x < size - size/2; x++) {
+        for (int x = 0; x < size - size / 2; x++) {
             b.add(0);
         }
 
@@ -103,7 +100,7 @@ public class Sorts {
         }
 
         for (int i = 0; i < b.size(); i++) {
-            b.set(i, list.get(i + size/2));
+            b.set(i, list.get(i + size / 2));
         }
 
         mergeSort(a);
@@ -130,7 +127,9 @@ public class Sorts {
                 c.set(k, b.get(j++));
             }
         }
-        list.clear();
-        list.addAll(c);
+        for (int k = 0; k < c.size(); k++) {
+            list.set(k, c.get(k));
+        }
+
     }
 }
