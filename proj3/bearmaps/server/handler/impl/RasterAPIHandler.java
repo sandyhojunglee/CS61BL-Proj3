@@ -90,6 +90,14 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
                 + "your browser.");
 
+        String[][] render_grid;
+        int raster_ul_lon = requestParams[0];
+        int raster_ul_lat = requestParams[4];
+        int raster_lr_lon = requestParams[1];
+        int raster_lr_lat = requestParams[5];
+        int depth;
+
+
         return results;
     }
 
