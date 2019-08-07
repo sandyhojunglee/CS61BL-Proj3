@@ -92,7 +92,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         double user_lr_lat = requestParams.get("lrlat");
         double width = requestParams.get("w");
         double height = requestParams.get("h");
-        int depth = 0;
+        int depth = 7;
 
         double a = (user_ul_lon - user_lr_lon) / 256;
         Boolean query_success;
@@ -123,33 +123,23 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
 
         //find tile names for UL and LR (x/y values)
         int rootRequestULLON = (int) ((user_ul_lon - ROOT_ULLON) / lonPerTile);
-        int rootRequestULLAT = (int) ((user_ul_lat - ROOT_ULLAT) / latPerTile);
+        int rootRequestULLAT = (int) ((ROOT_ULLAT - user_ul_lat) / latPerTile);
 
         int rootRequestLRLON = (int) Math.ceil((user_lr_lon - ROOT_ULLON) / lonPerTile);
         int rootRequestLRLAT = (int) Math.ceil((ROOT_ULLAT - user_lr_lat) / latPerTile);
 
         //coordinates
         double rasterULLON = (lonPerTile * rootRequestULLON) + ROOT_ULLON;
-        double rasterULLAT = (latPerTile * rootRequestULLAT) + ROOT_ULLAT;
+        double rasterULLAT = Math.abs((latPerTile * rootRequestULLAT) - ROOT_ULLAT);
 
         double rasterLRLON = (lonPerTile * rootRequestLRLON) + ROOT_ULLON;
-        double rasterLRLAT = (latPerTile * rootRequestLRLAT) + ROOT_ULLAT;
+        double rasterLRLAT = Math.abs((latPerTile * rootRequestLRLAT) - ROOT_ULLAT);
 
-        List<Double> xList = new ArrayList<>();
-        List<Double> yList = new ArrayList<>();
 
-        for (double x = rootRequestULLON; x <= rootRequestLRLON; x++) {
-            xList.add(x);
-        }
-
-        for (double y = rootRequestULLAT; y <= rootRequestLRLAT; y++) {
-            yList.add(y);
-        }
-
-        String[][] render_grid = new String[xList.size()][yList.size()];
-        for (int c = 0; c < yList.size() ; c++) {
-            for (int r = 0; r < xList.size(); r++) {
-                render_grid[r][c] = "d" + depth + "_" + "x" + xList.get(r) + "_" + "y" + yList.get(c) + ".png";
+        String[][] render_grid = new String[rootRequestLRLAT - rootRequestULLAT][rootRequestLRLON - rootRequestULLON];
+        for (int c = rootRequestULLON; c < rootRequestLRLON ; c++) {
+            for (int r = rootRequestULLAT; r < rootRequestLRLAT; r++) {
+                render_grid[r - rootRequestULLAT][c - rootRequestULLON] = "d" + depth + "_" + "x" + c + "_" + "y" + r + ".png";
             }
         }
         results.put("render_grid", render_grid);
@@ -158,7 +148,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         results.put("raster_lr_lon", rasterLRLON);
         results.put("raster_lr_lat", rasterLRLAT);
         results.put("depth", depth);
-        results.put("query_sucess", true);
+        results.put("query_success", true);
         return results;
     }
 
