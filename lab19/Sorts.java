@@ -84,6 +84,7 @@ public class Sorts {
         if (size <= 1) {
             return;
         }
+
         List<Integer> a = new ArrayList<>();
         List<Integer> b = new ArrayList<>();
 
@@ -129,5 +130,6 @@ public class Sorts {
         for (int k = 0; k < c.size(); k++) {
             list.set(k, c.get(k));
         }
+
     }
 }
