@@ -16,9 +16,9 @@ public class MyTrieSet implements TrieSet61BL {
         private char c;
         private boolean isKey;
 
-        Node(char c, boolean isKey) {
-            this.c = c;
-            this.isKey = isKey;
+        Node(char ch, boolean isKey1) {
+            this.c = ch;
+            this.isKey = isKey1;
             this.map = new HashMap<>();
         }
     }
@@ -57,7 +57,7 @@ public class MyTrieSet implements TrieSet61BL {
             return;
         }
         Node curr = root;
-        for (int i = 0, n = key.length(); i < n; i++) {
+        for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
             if (!curr.map.containsKey(c)) {
                 curr.map.put(c, new Node(c, false));
@@ -86,7 +86,8 @@ public class MyTrieSet implements TrieSet61BL {
         return prefixHelper(curr, result, prefix);
     }
 
-    public List<String> prefixHelper(Node current, List<String> wordList, String prefixSoFar) {
+    public List<String> prefixHelper(Node current,
+                                     List<String> wordList, String prefixSoFar) {
         if (current.isKey) {
             wordList.add(prefixSoFar);
         }

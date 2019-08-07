@@ -89,6 +89,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         Map<String, Object> results = new HashMap<>();
         System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
                 + "your browser.");
+
         return results;
     }
 

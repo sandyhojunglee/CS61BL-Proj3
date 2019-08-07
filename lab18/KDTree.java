@@ -30,7 +30,8 @@ public class KDTree implements PointSet {
 
     */
 
-    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean orientation, Boolean bool) {
+    private KDTreeNode insert(KDTreeNode kdTreeNode,
+                              Point point, Boolean orientation, Boolean bool) {
         if (kdTreeNode == null) {
             kdTreeNode = new KDTreeNode(point, orientation);
             //if true: compare x vlaues
@@ -149,8 +150,5 @@ public class KDTree implements PointSet {
         }
 
         // If you want to add any more methods, put them here!
-        int comparePoints(Point p, Point n, Boolean orientation) {
-            return 0;
-        }
     }
 }
