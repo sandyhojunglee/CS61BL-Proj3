@@ -35,7 +35,7 @@ public class KDTreeTest {
         Point f = new Point(4, 4);
         KDTree kd = new KDTree(List.of(a, b, c, d, e, f));
         System.out.println(kd);
-        //assertEquals(new Point(1, 5), kd.nearest(0, 7));
+        assertEquals(new Point(1, 5), kd.nearest(0, 7));
     }
 
     /* Creates 1,000 random points and 200 query points. Insert the 1000

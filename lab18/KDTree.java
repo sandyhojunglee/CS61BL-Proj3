@@ -43,12 +43,16 @@ public class KDTree implements PointSet {
                 kdTreeNode.left = insert(kdTreeNode.left, point, !orientation, false);
             } else if (point.getX() - kdTreeNode.point.getX() > 0) {
                 kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, false);
+            } else if (point.getX() - kdTreeNode.point.getX() == 0) {
+                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, false);
             }
         } else {
             if (point.getY() - kdTreeNode.point.getY() < 0) {
                 kdTreeNode.left = insert(kdTreeNode.left, point, !orientation, true);
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
                 kdTreeNode.right = insert(kdTreeNode.right, point, !orientation,true);
+            } else if (point.getY() - kdTreeNode.point.getY() == 0) {
+                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, true);
             }
         }
         return kdTreeNode;
@@ -77,7 +81,7 @@ public class KDTree implements PointSet {
         if (currentDistance < bestDistance) {
             best = current.point;
         }
-        if (comparingPoints(goal, current.point, current.orientation) < 0) {
+        if (comparingPoints(goal, current.point, current.orientation) <= 0) {
             goodSide = current.left;
             badSide = current.right;
         } else {
