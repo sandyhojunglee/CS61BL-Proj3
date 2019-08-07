@@ -13,15 +13,12 @@ public class KDTree implements PointSet {
        Point object. */
     public KDTree(List<Point> points) {
         this.points = points;
-
-        for (Point point : points) {
+        for (Point point : this.points) {
             if (point == points.get(0)) {
                 root = new KDTreeNode(point, horizontal);
-            }
-            else {
+            } else {
                 insert(this.root, point, horizontal, true);
             }
-
         }
     }
 
@@ -33,7 +30,8 @@ public class KDTree implements PointSet {
 
     */
 
-    private KDTreeNode insert(KDTreeNode kdTreeNode, Point point, Boolean orientation, Boolean bool) {
+    private KDTreeNode insert(KDTreeNode kdTreeNode,
+                              Point point, Boolean orientation, Boolean bool) {
         if (kdTreeNode == null) {
             kdTreeNode = new KDTreeNode(point, orientation);
             //if true: compare x vlaues
@@ -49,7 +47,7 @@ public class KDTree implements PointSet {
             if (point.getY() - kdTreeNode.point.getY() < 0) {
                 kdTreeNode.left = insert(kdTreeNode.left, point, !orientation, true);
             } else if (point.getY() - kdTreeNode.point.getY() > 0) {
-                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation,true);
+                kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, true);
             } else if (point.getY() - kdTreeNode.point.getY() == 0) {
                 kdTreeNode.right = insert(kdTreeNode.right, point, !orientation, true);
             }
@@ -61,9 +59,7 @@ public class KDTree implements PointSet {
        should run in O(log N) time on average, where N is the number of POINTS. */
     public Point nearest(double x, double y) {
         Point goal = new Point(x, y);
-
         return nearestHelper(root, goal, root.point);
-
     }
 
     public Point nearestHelper(KDTreeNode current, Point goal, Point best) {
@@ -99,26 +95,16 @@ public class KDTree implements PointSet {
             if (Point.distance(compare1, goal) < Point.distance(best, goal)) {
                 best = nearestHelper(badSide, goal, best);
             }
-
-        } return best;
+        }
+        return best;
     }
 
-    private double comparingPoints (Point a, Point b,boolean orientation){
+    private double comparingPoints(Point a, Point b, boolean orientation) {
         if (orientation == horizontal) {
             return a.getX() - b.getX();
         } else {
             return a.getY() - b.getY();
         }
-//            Point newPoint = new Point(best.getX(), goal.getY());
-//            double darkDistance = Point.distance(goal, newPoint);
-//            if (darkDistance < bestDistance) {
-//                //return nearestHelper();
-//            }
-//
-//        } else {
-//            Point newPoint = new Point(given.getX(), best.getY());
-//
-//        }
     }
 
 
@@ -164,10 +150,5 @@ public class KDTree implements PointSet {
         }
 
         // If you want to add any more methods, put them here!
-        int comparePoints(Point p, Point n, Boolean orientation) {
-            return 0;
-        }
-
     }
-
 }

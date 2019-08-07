@@ -84,6 +84,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
      */
     @Override
     public Map<String, Object> processRequest(Map<String, Double> requestParams, Response response) {
+
         //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
         //System.out.println(requestParams);
 
@@ -94,13 +95,14 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         double raster_lr_lon = requestParams.get(3);
         double raster_lr_lat = requestParams.get(2);
         double width = requestParams.get(4);
-        double height = requestParams.get(5)
+        double height = requestParams.get(5);
         int depth;
 
-        int a = (raster_ul_lon - raster_lr_lon) / 256
+        double a = (raster_ul_lon - raster_lr_lon) / 256;
         Boolean query_success;
 
         Map<String, Object> results = new HashMap<>();
+
         return results;
     }
 

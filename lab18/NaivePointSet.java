@@ -5,7 +5,7 @@ public class NaivePointSet implements PointSet {
     /* Constructs a NaivePointSet using POINTS. You can assume POINTS contains at
        least one Point object. */
     public NaivePointSet(List<Point> points) {
-       this.points = points;
+        this.points = points;
     }
 
     /* Returns the closest Point to the inputted X and Y coordinates. This method
