@@ -73,7 +73,7 @@ public class KDTree implements PointSet {
         }
 
         double bestDistance = Point.distance(goal, best);
-        double currentDistance = Point.distance(goal, current.point);
+        double currentDistance = Point.distance(goal, current.point());
 
         KDTreeNode goodSide;
         KDTreeNode badSide;
@@ -106,9 +106,9 @@ public class KDTree implements PointSet {
 
     private double comparingPoints (Point a, Point b,boolean orientation){
         if (orientation == horizontal) {
-            return a.getX() - b.getY();
+            return a.getX() - b.getX();
         } else {
-            return a.getY() - b.getX();
+            return a.getY() - b.getY();
         }
 //            Point newPoint = new Point(best.getX(), goal.getY());
 //            double darkDistance = Point.distance(goal, newPoint);
