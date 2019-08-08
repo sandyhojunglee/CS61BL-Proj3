@@ -4,6 +4,35 @@ public class DistributionSorts {
        only 0, 1, ..., 9. */
     public static void countingSort(int[] arr) {
         // TODO: YOUR CODE HERE
+        int[] counts = new int[10];
+//        for (int index : counts) {
+//            counts[index] = 0;
+//        }
+        for (int i = 0; i < arr.length; i++) {
+            counts[arr[i]] ++;
+        }
+        int[] sorted = new int[arr.length];
+//        int[] starts = new int[10];
+//        for (int startIndex  = 0; startIndex < starts.length; startIndex++) {
+//            if (startIndex == 0) {
+//                starts[0] = 0;
+//            } else {
+//                starts[startIndex] = counts[startIndex - 1] + starts[startIndex - 1];
+//            }
+//        }
+
+        for (int countIndex = 1; countIndex < counts.length; countIndex++) {
+            counts[countIndex] += counts[countIndex - 1];
+        }
+
+        for (int arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--) {
+            sorted[counts[arr[arrIndex]] - 1] = arr[arrIndex];
+            counts[arr[arrIndex]] --;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = sorted[i];
+        }
     }
 
     /* Destructively sorts ARR using LSD radix sort. */
