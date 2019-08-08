@@ -84,7 +84,6 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         Point point1 = weird.nearest(lon, lat);
         return nodePoint.get(point1).id();
-
     }
 
 
