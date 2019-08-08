@@ -7,7 +7,8 @@ public class DistributionSorts {
         //keep track of how many of each index from 0-9 arr has
         int[] counts = new int[10];
 
-        //at each arr's index, find what the value is, and add 1 to counts[arr's index value]
+        //at each arr's index, find what the value is, and add 1
+        // to counts[arr's index value]
         for (int i = 0; i < arr.length; i++) {
             counts[arr[i]]++;
         }
