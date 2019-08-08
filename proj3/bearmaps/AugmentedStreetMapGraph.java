@@ -134,7 +134,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<Map<String, Object>> result = new ArrayList<>();
 
         String cleanedLocationName = cleanString(locationName);
-        List<String> cleaned = locations.keysWithPrefix(locationName);
+        List<String> cleaned = locations.keysWithPrefix(cleanedLocationName);
 
 
         for (String location : cleaned) {
@@ -152,6 +152,9 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         return result;
     }
+
+//    <[{name=Martin Luther King Jr Way & Cedar Street, lon=-122.273618, id=427901410, lat=37.878018}, {name=Martin Luther King Jr Way & Cedar Street, lon=-122.273781, id=1710879770, lat=37.877671}]>
+//    <[{name=Martin Luther King Jr Way & Cedar Street, lon=-122.273781, id=1710879770, lat=37.877671}]>
 
 
     /**
