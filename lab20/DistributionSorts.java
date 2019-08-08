@@ -3,7 +3,6 @@ public class DistributionSorts {
     /* Destructively sorts ARR using counting sort. Assumes that ARR contains
        only 0, 1, ..., 9. */
     public static void countingSort(int[] arr) {
-        // TODO: YOUR CODE HERE
         int[] counts = new int[10];
 //        for (int index : counts) {
 //            counts[index] = 0;
