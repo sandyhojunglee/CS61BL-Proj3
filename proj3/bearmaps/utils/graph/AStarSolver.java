@@ -82,6 +82,18 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
         }
 
+        if (pq.size() ==0) {
+            outcome = SolverOutcome.UNSOLVABLE;
+            timeSpent = sw.elapsedTime();
+        }
+
+        if (timeout < sw.elapsedTime()) {
+            outcome = SolverOutcome.TIMEOUT;
+            solution.clear();
+            timeSpent = sw.elapsedTime();
+            return;
+        }
+
         //is this where I am supposed to be doing all the final assignments that I will be returning?
         if (pq.peek().equals(end)) {
             outcome = SolverOutcome.SOLVED;
@@ -101,17 +113,9 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
             return;
         }
 
-        if (timeout < sw.elapsedTime()) {
-            outcome = SolverOutcome.TIMEOUT;
-            solution.clear();
-            timeSpent = sw.elapsedTime();
-            return;
-        }
 
-        if (pq.size() ==0) {
-            outcome = SolverOutcome.UNSOLVABLE;
-            timeSpent = sw.elapsedTime();
-        }
+
+
 
     }
 

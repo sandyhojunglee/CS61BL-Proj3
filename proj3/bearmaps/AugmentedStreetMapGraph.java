@@ -111,6 +111,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * "id" -> Number, The id of the node. <br>
      */
     public List<Map<String, Object>> getLocations(String locationName) {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String cleanedLocationName = cleanString(locationName);
+
         return new LinkedList<>();
     }
 
