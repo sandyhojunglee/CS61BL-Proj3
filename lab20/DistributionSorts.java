@@ -46,7 +46,6 @@ public class DistributionSorts {
        DIGIT-th digit. When DIGIT is equal to 0, sort the numbers by the
        rightmost digit of each number. */
     private static void countingSortOnDigit(int[] arr, int digit) {
-
         int[] counts = new int[10];
         int[] unsorted = new int[arr.length];
         System.arraycopy(arr, 0, unsorted, 0, arr.length);
