@@ -47,15 +47,14 @@ public class DistributionSorts {
        rightmost digit of each number. */
     private static void countingSortOnDigit(int[] arr, int digit) {
 
-
         int[] counts = new int[10];
-        int[] sorted = new int[arr.length];
-        System.arraycopy(arr, 0, sorted, 0, arr.length);
+        int[] unsorted = new int[arr.length];
+        System.arraycopy(arr, 0, unsorted, 0, arr.length);
         int[] starts = new int[counts.length];
 
         for (int i = 0; i < arr.length; i++) {
             int divide = (int) Math.pow(10, digit + 1);
-            int floor1 = Math.floorMod(sorted[i], divide);
+            int floor1 = Math.floorMod(unsorted[i], divide);
             int o = (int) (floor1 / Math.pow(10, digit));
             counts[o]++;
         }
@@ -66,18 +65,17 @@ public class DistributionSorts {
             sum += counts[countIndex];
         }
 
-        for (int arrIndex = 0; arrIndex < sorted.length; arrIndex++) {
+        for (int arrIndex = 0; arrIndex < unsorted.length; arrIndex++) {
             int divide = (int) Math.pow(10, digit + 1);
-            int floor = Math.floorMod(sorted[arrIndex], divide);
+            int floor = Math.floorMod(unsorted[arrIndex], divide);
             int d = (int) (floor / Math.pow(10, digit));
             //System.out.println(d);
             //System.out.println(starts[d]);
 
 
-            arr[starts[d]] = sorted[arrIndex] ;
+            arr[starts[d]] = unsorted[arrIndex];
             starts[d]++;
         }
-
     }
 
     /* Returns the largest number of digits that any integer in ARR has. */

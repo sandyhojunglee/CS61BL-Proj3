@@ -23,6 +23,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     MyTrieSet locations;
     Map<String, List<String>>  cleanToUnclean;
     List<String> listOfNames;
+    Map<String, Node> nameNode;
 
 
     public AugmentedStreetMapGraph(String dbPath) {
@@ -31,12 +32,13 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<Node> nodes = this.getNodes();
 
         List<Point> points = new ArrayList<>();
+        nodePoint = new HashMap<>();
 
         locations = new MyTrieSet();
         cleanToUnclean = new HashMap<>();
         listOfNames = new ArrayList<>();
+        nameNode = new HashMap<>();
 
-        nodePoint = new HashMap<>();
 
         for (Node node : nodes) {
             Point point = new Point(node.lon(), node.lat());
@@ -50,6 +52,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 String name = node.name();
                 String cleanedName = cleanString(name);
                 locations.add(cleanedName);
+                nameNode.put(name, node);
 
                 List<String> value = cleanToUnclean.get(cleanedName);
 
@@ -129,8 +132,24 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<Map<String, Object>> result = new ArrayList<>();
 
         String cleanedLocationName = cleanString(locationName);
+        List<String> cleaned = locations.keysWithPrefix(locationName);
 
-        return new LinkedList<>();
+
+
+        for (String location : cleaned) {
+            List<String> loc = cleanToUnclean.get(location);
+            for (String name : loc) {
+                Node node = nameNode.get(name);
+                HashMap<String, Object> info = new HashMap<>();
+                info.put("lat", node.lat());
+                info.put("lon", node.lon());
+                info.put("name", node.name());
+                info.put("id", node.id());
+                result.add(info);
+            }
+        }
+
+        return result;
     }
 
 
