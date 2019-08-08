@@ -18,6 +18,11 @@ import java.util.*;
  * @author Alan Yao, Josh Hug, ________
  */
 public class AugmentedStreetMapGraph extends StreetMapGraph {
+    WeirdPointSet weird;
+    Map<Point,Node> nodePoint;
+    MyTrieSet locations;
+    Map<String, List<String>>  cleanToUnclean;
+    List<String> listOfNames;
 
 
     public AugmentedStreetMapGraph(String dbPath) {
@@ -25,13 +30,43 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         // You might find it helpful to uncomment the line below:
         List<Node> nodes = this.getNodes();
 
-        Map<Node,Long> nodePoint = new HashMap<>();
+        List<Point> points = new ArrayList<>();
+
+        locations = new MyTrieSet();
+        cleanToUnclean = new HashMap<>();
+        listOfNames = new ArrayList<>();
+
+        nodePoint = new HashMap<>();
 
         for (Node node : nodes) {
-            nodePoint.put(node, node.id());
-        }
-        WeirdPointSet weird = new WeirdPointSet(nodes);
+            Point point = new Point(node.lon(), node.lat());
+            nodePoint.put(point, node);
 
+            if (neighbors(node.id()).size() != 0) {
+                points.add(point);
+            }
+
+            if (node.name() != null) {
+                String name = node.name();
+                String cleanedName = cleanString(name);
+                locations.add(cleanedName);
+
+                List<String> value = cleanToUnclean.get(cleanedName);
+
+                if (value == null) {
+                    value = new ArrayList<>();
+                    value.add(name);
+                    cleanToUnclean.put(cleanedName, value);
+                } else {
+                    if (!value.contains(name)) {
+                        value.add(name);
+                    }
+                }
+
+            }
+        }
+
+        weird = new WeirdPointSet(points);
 
     }
 
@@ -45,11 +80,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      */
     public long closest(double lon, double lat) {
 
-
         //should only consider verticies that have neighbors when calculating closest
 
-
-        return WeirdPointSet.nearest(lon, lat);
+        Point point1 = weird.nearest(lon, lat);
+        return nodePoint.get(point1).id();
     }
 
 
@@ -62,36 +96,21 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * cleaned <code>prefix</code>.
      */
     public List<String> getLocationsByPrefix(String prefix) {
-        MyTrieSet hi = new MyTrieSet();
-
         List<String> result = new ArrayList<>();
 
-        Node curr = root;
+        String cleanedPrefix = cleanString(prefix);
+        List<String> cleaned = locations.keysWithPrefix(cleanedPrefix);
 
-        for (int i = 0; i < prefix.length(); i++) {
-            curr = curr.map.get(prefix.charAt(i));
-            if (curr == null) {
-                return result;
+        for (String name : cleaned) {
+
+            List<String> uncleaned = cleanToUnclean.get(name);
+            for (String hi : uncleaned) {
+                result.add(hi);
             }
         }
-
-        return prefixHelper(curr, result, prefix);
+        return result;
     }
 
-    public List<String> prefixHelper(Node current,
-                                     List<String> wordList, String prefixSoFar) {
-        if (current.isKey) {
-            wordList.add(prefixSoFar);
-        }
-        for (Character key : current.map.keySet()) {
-            Node children = current.map.get(key);
-            prefixHelper(children, wordList, prefixSoFar + key);
-        }
-        return wordList;
-
-
-
-    }
 
     /**
      * For Project Part III (extra credit)
@@ -107,6 +126,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * "id" -> Number, The id of the node. <br>
      */
     public List<Map<String, Object>> getLocations(String locationName) {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String cleanedLocationName = cleanString(locationName);
+
         return new LinkedList<>();
     }
 
