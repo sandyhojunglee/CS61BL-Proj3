@@ -5,7 +5,7 @@ import org.apache.commons.math3.geometry.spherical.twod.Vertex;
 
 import java.util.*;
 
-public class AStarSolver implements ShortestPathsSolver {
+public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
     double timeSpent;
     List<Vertex> solution;
@@ -30,6 +30,7 @@ public class AStarSolver implements ShortestPathsSolver {
         edgeTo =  new HashMap<>();
         numStatesExplored = 0;
         solutionWeight = 0.0;
+        solution = new ArrayList<>();
 
         //keep track of distance
         //keep track of edge to each node
@@ -52,25 +53,6 @@ public class AStarSolver implements ShortestPathsSolver {
             Vertex p = pq.poll();
             numStatesExplored++;
 
-            //is this where I am supposed to be doing all the final assignments that I will be returning?
-            if (p.equals(end)) {
-                outcome = SolverOutcome.SOLVED;
-                timeSpent = sw.elapsedTime();
-                solutionWeight = distTo.get(end); //make sure you are updating this correctly so that u can call end
-
-                //writing the final solution list
-                Vertex j = end;
-                solution.add(0, end);
-
-                while(!j.equals(start)) {
-                    WeightedEdge<Vertex> e = edgeTo.get(j);
-                    solution.add(0, e.from());
-                }
-
-                return;
-
-
-            }
 
             // ***** RELAXING EDGES OUTGOING FROM P ****** //
             for (WeightedEdge<Vertex> e : input.neighbors(p)) {
@@ -98,15 +80,39 @@ public class AStarSolver implements ShortestPathsSolver {
 
             }
 
-            if (timeout < sw.elapsedTime()) {
-                outcome = SolverOutcome.TIMEOUT;
-                solution.clear();
-                timeSpent = sw.elapsedTime();
+        }
+
+        //is this where I am supposed to be doing all the final assignments that I will be returning?
+        if (pq.peek().equals(end)) {
+            outcome = SolverOutcome.SOLVED;
+            timeSpent = sw.elapsedTime();
+            solutionWeight = distTo.get(end); //make sure you are updating this correctly so that u can call end
+
+            //writing the final solution list
+            Vertex j = end;
+            solution.add(0, end);
+
+            while(!j.equals(start)) {
+                WeightedEdge<Vertex> e = edgeTo.get(j);
+                solution.add(0, e.from());
+                j = e.from();
             }
 
+            return;
         }
-        outcome = SolverOutcome.UNSOLVABLE;
-        timeSpent = sw.elapsedTime();
+
+        if (timeout < sw.elapsedTime()) {
+            outcome = SolverOutcome.TIMEOUT;
+            solution.clear();
+            timeSpent = sw.elapsedTime();
+            return;
+        }
+
+        if (pq.size() ==0) {
+            outcome = SolverOutcome.UNSOLVABLE;
+            timeSpent = sw.elapsedTime();
+        }
+
     }
 
 //    private List<Vertex> pathWriter(WeightedEdge<Vertex> vertex, Vertex start) {
