@@ -85,6 +85,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         if (pq.size() ==0) {
             outcome = SolverOutcome.UNSOLVABLE;
             timeSpent = sw.elapsedTime();
+            return;
         }
 
         if (timeout < sw.elapsedTime()) {
