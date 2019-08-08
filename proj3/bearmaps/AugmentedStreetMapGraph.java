@@ -22,7 +22,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     MyTrieSet locations;
     Map<String, List<String>> cleanToUnclean;
     List<String> listOfNames;
-    Map<String, Node> nameNode;
+    Map<String, List<Node>> nameNode;
 
 
     public AugmentedStreetMapGraph(String dbPath) {
@@ -51,7 +51,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 String name = node.name();
                 String cleanedName = cleanString(name);
                 locations.add(cleanedName);
-                nameNode.put(name, node);
+
 
                 List<String> value = cleanToUnclean.get(cleanedName);
 
@@ -62,6 +62,18 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 } else {
                     if (!value.contains(name)) {
                         value.add(name);
+                    }
+                }
+
+                List<Node> value1 = nameNode.get(cleanedName);
+
+                if (value1 == null) {
+                    value1 = new ArrayList<>();
+                    value1.add(node);
+                    nameNode.put(cleanedName, value1);
+                } else {
+                    if (!value1.contains(name)) {
+                        value1.add(node);
                     }
                 }
 
@@ -137,22 +149,26 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<String> cleaned = locations.keysWithPrefix(cleanedLocationName);
 
 
+
         for (String location : cleaned) {
             List<String> loc = cleanToUnclean.get(location);
             for (String name : loc) {
-                Node node = nameNode.get(name);
-                HashMap<String, Object> info = new HashMap<>();
-                info.put("lat", node.lat());
-                info.put("lon", node.lon());
-                info.put("name", node.name());
-                info.put("id", node.id());
-                result.add(info);
+                List<Node> nodes = nameNode.get(name);
+                for(Node node: nodes) {
+                    HashMap<String, Object> info = new HashMap<>();
+                    info.put("lat", node.lat());
+                    info.put("lon", node.lon());
+                    info.put("name", node.name());
+                    info.put("id", node.id());
+                    result.add(info);
+                }
             }
         }
 
         return result;
     }
-
+//    expected:<[{name=Shattuck Av & Cedar St, lon=-122.2691869, id=2504241145, lat=37.8785771}, {name=Shattuck Av & Cedar St, lon=-122.2690415, id=2504241144, lat=37.8783204}, {name=Shattuck Av & Cedar St, lon=-122.269245, id=348192497, lat=37.878581}, {name=Shattuck Av & Cedar St, lon=-122.268971, id=348192496, lat=37.878326}]>
+//    but was:<[{name=Shattuck Av & Cedar St, lon=-122.2690415, id=2504241144, lat=37.8783204}]>
 //    <[{name=Martin Luther King Jr Way & Cedar Street, lon=-122.273618, id=427901410, lat=37.878018}, {name=Martin Luther King Jr Way & Cedar Street, lon=-122.273781, id=1710879770, lat=37.877671}]>
 //    <[{name=Martin Luther King Jr Way & Cedar Street, lon=-122.273781, id=1710879770, lat=37.877671}]>
 
