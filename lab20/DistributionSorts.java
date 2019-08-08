@@ -4,32 +4,31 @@ public class DistributionSorts {
        only 0, 1, ..., 9. */
     public static void countingSort(int[] arr) {
         // TODO: YOUR CODE HERE
+
+        //keep track of how many of each index from 0-9 arr has
         int[] counts = new int[10];
-//        for (int index : counts) {
-//            counts[index] = 0;
-//        }
+
+        //at each arr's index, find what the value is, and add 1 to counts[arr's index value]
         for (int i = 0; i < arr.length; i++) {
             counts[arr[i]] ++;
         }
-        int[] sorted = new int[arr.length];
-//        int[] starts = new int[10];
-//        for (int startIndex  = 0; startIndex < starts.length; startIndex++) {
-//            if (startIndex == 0) {
-//                starts[0] = 0;
-//            } else {
-//                starts[startIndex] = counts[startIndex - 1] + starts[startIndex - 1];
-//            }
-//        }
 
+        int[] sorted = new int[arr.length];
+        int[] starts = new int[counts.length];
+        //counts[0] is always 0
+        //put start indices
+        int sum = counts[0];
         for (int countIndex = 1; countIndex < counts.length; countIndex++) {
-            counts[countIndex] += counts[countIndex - 1];
+            starts[countIndex] = sum;
+            sum += counts[countIndex];
         }
 
         for (int arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--) {
-            sorted[counts[arr[arrIndex]] - 1] = arr[arrIndex];
-            counts[arr[arrIndex]] --;
+            sorted[starts[arr[arrIndex]]] = arr[arrIndex];
+            starts[arr[arrIndex]] --;
         }
 
+        //Destructive oohhhh
         for (int i = 0; i < arr.length; i++) {
             arr[i] = sorted[i];
         }
