@@ -1,5 +1,4 @@
 package bearmaps.utils.graph;
-
 import bearmaps.utils.pq.DoubleMapPQ;
 import edu.princeton.cs.algs4.Stopwatch;
 import org.apache.commons.math3.geometry.spherical.twod.Vertex;

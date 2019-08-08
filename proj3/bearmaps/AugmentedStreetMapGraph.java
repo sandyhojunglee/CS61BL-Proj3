@@ -2,11 +2,13 @@ package bearmaps;
 
 import bearmaps.utils.graph.streetmap.Node;
 import bearmaps.utils.graph.streetmap.StreetMapGraph;
+
 import bearmaps.utils.ps.MyTrieSet;
 import bearmaps.utils.ps.Point;
 import bearmaps.utils.ps.WeirdPointSet;
 
 import java.util.*;
+
 
 /**
  * An augmented graph that is more powerful that a standard StreetMapGraph.
@@ -16,7 +18,6 @@ import java.util.*;
  * @author Alan Yao, Josh Hug, ________
  */
 public class AugmentedStreetMapGraph extends StreetMapGraph {
-
 
 
     public AugmentedStreetMapGraph(String dbPath) {
@@ -31,6 +32,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         }
         WeirdPointSet weird = new WeirdPointSet(nodes);
 
+
     }
 
 
@@ -43,13 +45,15 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      */
     public long closest(double lon, double lat) {
 
-        Point nearest = weird.nearest(lon, lat);
-
 
         //should only consider verticies that have neighbors when calculating closest
 
 
         return WeirdPointSet.nearest(lon, lat);
+
+        WeirdPointSet pt = new WeirdPointSet(new Point(lon, lat) );
+        return 0;
+
     }
 
 
@@ -88,6 +92,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
             prefixHelper(children, wordList, prefixSoFar + key);
         }
         return wordList;
+
 
 
     }
