@@ -17,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bearmaps.utils.Constants.SEMANTIC_STREET_GRAPH;
-import static bearmaps.utils.Constants.ROUTE_LIST;
+import static bearmaps.utils.Constants.*;
 
 /**
  * Handles requests from the web browser for map images. These images
@@ -88,20 +87,52 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
         //System.out.println(requestParams);
 
-
         String[][] render_grid;
-        double raster_ul_lon = requestParams.get(1);
-        double raster_ul_lat = requestParams.get(0);
-        double raster_lr_lon = requestParams.get(3);
-        double raster_lr_lat = requestParams.get(2);
-        double width = requestParams.get(4);
-        double height = requestParams.get(5);
-        int depth;
+        double raster_ul_lon = requestParams.get("ullon");
+        double raster_ul_lat = requestParams.get("ullat");
+        double raster_lr_lon = requestParams.get("lrlon");
+        double raster_lr_lat = requestParams.get("lrlat");
+        double width = requestParams.get("w");
+        double height = requestParams.get("h");
+        double depth;
 
-        double a = (raster_ul_lon - raster_lr_lon) / 256;
+        double xDist = raster_ul_lon - raster_lr_lon;
+        double lonDPP = xDist / width;
+
+        double rootLonDPP = (ROOT_LRLON-ROOT_ULLON) / TILE_SIZE;
+
+
+        depth = Math.log(~49 / lonDPP) + 1;
+
+        if (depth > 7) {
+            depth = 7;
+        }
+
+
+
         Boolean query_success;
 
         Map<String, Object> results = new HashMap<>();
+
+        // ****** CORNER CASE 2 *********
+        if (raster_ul_lon > ROOT_ULLON && raster_ul_lat > ROOT_ULLAT && raster_lr_lon > ROOT_LRLON && raster_lr_lat > ROOT_LRLAT){
+            results.put("render_grid", null);
+            results.put("raster_ul_lon", null);
+            results.put("raster_ul_lat", null);
+            results.put("raster_lr_lon", null);
+            results.put("raster_lr_lat", null);
+            results.put("depth", null);
+            results.put("query_success", false);
+
+            return results;
+        }
+        results.put();
+        results.put();
+        results.put();
+        results.put();
+        results.put();
+        results.put("depth", depth);
+        results.put();
 
         return results;
     }
