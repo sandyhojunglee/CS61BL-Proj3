@@ -1,10 +1,12 @@
 package bearmaps;
 
+import bearmaps.utils.graph.streetmap.Node;
 import bearmaps.utils.graph.streetmap.StreetMapGraph;
+import bearmaps.utils.ps.MyTrieSet;
+import bearmaps.utils.ps.Point;
+import bearmaps.utils.ps.WeirdPointSet;
 
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * An augmented graph that is more powerful that a standard StreetMapGraph.
@@ -15,10 +17,20 @@ import java.util.LinkedList;
  */
 public class AugmentedStreetMapGraph extends StreetMapGraph {
 
+
+
     public AugmentedStreetMapGraph(String dbPath) {
         super(dbPath);
         // You might find it helpful to uncomment the line below:
-        // List<Node> nodes = this.getNodes();
+        List<Node> nodes = this.getNodes();
+
+        Map<Node,Long> nodePoint = new HashMap<>();
+
+        for (Node node : nodes) {
+            nodePoint.put(node, node.id());
+        }
+        WeirdPointSet weird = new WeirdPointSet(nodes);
+
     }
 
 
@@ -30,7 +42,14 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * @return The id of the node in the graph closest to the target.
      */
     public long closest(double lon, double lat) {
-        return 0;
+
+        Point nearest = weird.nearest(lon, lat);
+
+
+        //should only consider verticies that have neighbors when calculating closest
+
+
+        return WeirdPointSet.nearest(lon, lat);
     }
 
 
@@ -43,7 +62,34 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * cleaned <code>prefix</code>.
      */
     public List<String> getLocationsByPrefix(String prefix) {
-        return new LinkedList<>();
+        MyTrieSet hi = new MyTrieSet();
+
+        List<String> result = new ArrayList<>();
+
+        Node curr = root;
+
+        for (int i = 0; i < prefix.length(); i++) {
+            curr = curr.map.get(prefix.charAt(i));
+            if (curr == null) {
+                return result;
+            }
+        }
+
+        return prefixHelper(curr, result, prefix);
+    }
+
+    public List<String> prefixHelper(Node current,
+                                     List<String> wordList, String prefixSoFar) {
+        if (current.isKey) {
+            wordList.add(prefixSoFar);
+        }
+        for (Character key : current.map.keySet()) {
+            Node children = current.map.get(key);
+            prefixHelper(children, wordList, prefixSoFar + key);
+        }
+        return wordList;
+
+
     }
 
     /**
