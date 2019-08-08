@@ -25,7 +25,7 @@ public class DistributionSorts {
 
         for (int arrIndex = arr.length - 1; arrIndex >= 0; arrIndex--) {
             sorted[starts[arr[arrIndex]]] = arr[arrIndex];
-            starts[arr[arrIndex]] --;
+            starts[arr[arrIndex]] ++;
         }
 
         //Destructive oohhhh
