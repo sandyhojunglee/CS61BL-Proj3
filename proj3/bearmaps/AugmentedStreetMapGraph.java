@@ -49,7 +49,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 String name = node.name();
                 String cleanedName = cleanString(name);
                 locations.add(cleanedName);
-                cleanToUnclean.put(name, cleanedName);
+                cleanToUnclean.put(cleanedName, name);
             }
         }
 
@@ -90,6 +90,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<String> cleaned = locations.keysWithPrefix(cleanedPrefix);
 
         for (String name : cleaned) {
+
             String uncleaned = cleanToUnclean.get(name);
             result.add(uncleaned);
         }
