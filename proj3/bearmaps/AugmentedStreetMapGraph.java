@@ -151,10 +151,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
 
         for (String location : cleaned) {
-            List<String> loc = cleanToUnclean.get(location);
-            for (String name : loc) {
-                List<Node> nodes = nameNode.get(name);
-                for(Node node: nodes) {
+            //List<String> loc = cleanToUnclean.get(location);
+            //for (String name : loc) {
+                List<Node> nodes = nameNode.get(location);
+                for(Node node : nodes) {
                     HashMap<String, Object> info = new HashMap<>();
                     info.put("lat", node.lat());
                     info.put("lon", node.lon());
@@ -162,7 +162,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                     info.put("id", node.id());
                     result.add(info);
                 }
-            }
+            //}
         }
 
         return result;
