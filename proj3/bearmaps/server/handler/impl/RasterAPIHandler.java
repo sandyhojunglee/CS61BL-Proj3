@@ -95,6 +95,7 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
         int depth = 7;
 
         double a = (user_ul_lon - user_lr_lon) / 256;
+
         Boolean query_success;
 
         Map<String, Object> results = new HashMap<>();
