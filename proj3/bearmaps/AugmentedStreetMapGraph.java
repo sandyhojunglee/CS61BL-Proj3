@@ -50,10 +50,6 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
 
         return WeirdPointSet.nearest(lon, lat);
-
-        WeirdPointSet pt = new WeirdPointSet(new Point(lon, lat) );
-        return 0;
-
     }
 
 
