@@ -146,7 +146,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<Map<String, Object>> result = new ArrayList<>();
 
         String cleanedLocationName = cleanString(locationName);
-        
+
 
         //List<String> loc = cleanToUnclean.get(location);
         //for (String name : loc) {
