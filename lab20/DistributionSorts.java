@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class DistributionSorts {
 
     /* Destructively sorts ARR using counting sort. Assumes that ARR contains
@@ -11,7 +9,7 @@ public class DistributionSorts {
 
         //at each arr's index, find what the value is, and add 1 to counts[arr's index value]
         for (int i = 0; i < arr.length; i++) {
-            counts[arr[i]] ++;
+            counts[arr[i]]++;
         }
 
         int[] sorted = new int[arr.length];
@@ -26,7 +24,7 @@ public class DistributionSorts {
 
         for (int arrIndex = 0; arrIndex < arr.length; arrIndex++) {
             sorted[starts[arr[arrIndex]]] = arr[arrIndex];
-            starts[arr[arrIndex]] ++;
+            starts[arr[arrIndex]]++;
         }
 
         //Destructive oohhhh
@@ -53,11 +51,11 @@ public class DistributionSorts {
         int[] sorted = new int[arr.length];
         int[] starts = new int[counts.length];
 
-        for (int i : arr) {
+        for (int i = 0; i < arr.length; i++) {
             int divide = (int) Math.pow(10, digit + 1);
-            Math.floorMod(i, divide);
-            int o = (int) (i / Math.pow(10, digit));
-            counts[o] ++;
+            int floor1 = Math.floorMod(arr[i], divide);
+            int o = (int) (floor1 / Math.pow(10, digit));
+            counts[o]++;
         }
 
         int sum = counts[0];
@@ -67,8 +65,15 @@ public class DistributionSorts {
         }
 
         for (int arrIndex = 0; arrIndex < arr.length; arrIndex++) {
-            sorted[starts[arr[arrIndex]]] = arr[arrIndex];
-            starts[arr[arrIndex]] ++;
+            int divide = (int) Math.pow(10, digit + 1);
+            int floor = Math.floorMod(arr[arrIndex], divide);
+            int d = (int) (floor / Math.pow(10, digit));
+            //System.out.println(d);
+            //System.out.println(starts[d]);
+
+
+            sorted[starts[d]] = arr[arrIndex];
+            starts[d]++;
         }
 
         //Destructive oohhhh
