@@ -50,11 +50,12 @@ public class DistributionSorts {
 
         int[] counts = new int[10];
         int[] sorted = new int[arr.length];
+        System.arraycopy(arr, 0, sorted, 0, arr.length);
         int[] starts = new int[counts.length];
 
         for (int i = 0; i < arr.length; i++) {
             int divide = (int) Math.pow(10, digit + 1);
-            int floor1 = Math.floorMod(arr[i], divide);
+            int floor1 = Math.floorMod(sorted[i], divide);
             int o = (int) (floor1 / Math.pow(10, digit));
             counts[o]++;
         }
@@ -65,23 +66,17 @@ public class DistributionSorts {
             sum += counts[countIndex];
         }
 
-        for (int arrIndex = 0; arrIndex < arr.length; arrIndex++) {
+        for (int arrIndex = 0; arrIndex < sorted.length; arrIndex++) {
             int divide = (int) Math.pow(10, digit + 1);
-            int floor = Math.floorMod(arr[arrIndex], divide);
+            int floor = Math.floorMod(sorted[arrIndex], divide);
             int d = (int) (floor / Math.pow(10, digit));
             //System.out.println(d);
             //System.out.println(starts[d]);
 
 
-            sorted[starts[d]] = arr[arrIndex];
+            arr[starts[d]] = sorted[arrIndex] ;
             starts[d]++;
         }
-
-        //Destructive oohhhh
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = sorted[i];
-        }
-
 
     }
 
