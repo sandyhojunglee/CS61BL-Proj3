@@ -21,7 +21,8 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     WeirdPointSet weird;
     Map<Point,Node> nodePoint;
     MyTrieSet locations;
-    Map<String, String>  cleanToUnclean;
+    Map<String, List<String>>  cleanToUnclean;
+    List<String> listOfNames;
 
 
     public AugmentedStreetMapGraph(String dbPath) {
@@ -33,7 +34,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         locations = new MyTrieSet();
         cleanToUnclean = new HashMap<>();
-
+        listOfNames = new ArrayList<>();
 
         nodePoint = new HashMap<>();
 
@@ -49,7 +50,19 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 String name = node.name();
                 String cleanedName = cleanString(name);
                 locations.add(cleanedName);
-                cleanToUnclean.put(cleanedName, name);
+
+                List<String> value = cleanToUnclean.get(cleanedName);
+
+                if (value == null) {
+                    value = new ArrayList<>();
+                    value.add(name);
+                    cleanToUnclean.put(cleanedName, value);
+                } else {
+                    if (!value.contains(name)) {
+                        value.add(name);
+                    }
+                }
+
             }
         }
 
@@ -91,8 +104,10 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         for (String name : cleaned) {
 
-            String uncleaned = cleanToUnclean.get(name);
-            result.add(uncleaned);
+            List<String> uncleaned = cleanToUnclean.get(name);
+            for (String hi : uncleaned) {
+                result.add(hi);
+            }
         }
         return result;
     }
