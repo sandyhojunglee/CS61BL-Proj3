@@ -72,7 +72,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                     value1.add(node);
                     nameNode.put(cleanedName, value1);
                 } else {
-                    if (!value1.contains(name)) {
+                    if (!value1.contains(node)) {
                         value1.add(node);
                     }
                 }
@@ -147,7 +147,6 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         String cleanedLocationName = cleanString(locationName);
         List<String> cleaned = locations.keysWithPrefix(cleanedLocationName);
-
 
 
         for (String location : cleaned) {
