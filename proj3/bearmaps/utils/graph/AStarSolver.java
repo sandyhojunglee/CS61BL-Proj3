@@ -1,4 +1,5 @@
 package bearmaps.utils.graph;
+
 import bearmaps.utils.pq.DoubleMapPQ;
 import edu.princeton.cs.algs4.Stopwatch;
 import org.apache.commons.math3.geometry.spherical.twod.Vertex;
@@ -27,7 +28,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
         DoubleMapPQ<Vertex> pq = new DoubleMapPQ<>();
         distTo = new HashMap<>();
-        edgeTo =  new HashMap<>();
+        edgeTo = new HashMap<>();
         numStatesExplored = 0;
         solutionWeight = 0.0;
         solution = new ArrayList<>();
@@ -49,7 +50,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
             return;
         }
 
-        while (pq.size()!= 0 && !pq.peek().equals(end) && sw.elapsedTime() <= timeout) {
+        while (pq.size() != 0 && !pq.peek().equals(end) && sw.elapsedTime() <= timeout) {
             Vertex p = pq.poll();
             numStatesExplored++;
 
@@ -82,7 +83,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
         }
 
-        if (pq.size() ==0) {
+        if (pq.size() == 0) {
             outcome = SolverOutcome.UNSOLVABLE;
             timeSpent = sw.elapsedTime();
         }
@@ -104,7 +105,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
             Vertex j = end;
             solution.add(0, end);
 
-            while(!j.equals(start)) {
+            while (!j.equals(start)) {
                 WeightedEdge<Vertex> e = edgeTo.get(j);
                 solution.add(0, e.from());
                 j = e.from();
@@ -112,9 +113,6 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
             return;
         }
-
-
-
 
 
     }
@@ -149,6 +147,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         // check too see if you have run out of time every time you dequeue
 
     }
+
     public List<Vertex> solution() {
 //        if (outcome().equals(SolverOutcome.TIMEOUT) || outcome().equals((SolverOutcome.UNSOLVABLE))) {
 //            return null; //or just return solution if we end up not adding anythign in this list
@@ -159,6 +158,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         //should be empty if result was TIMEOUT or UNSOLVABLE
 
     }
+
     public double solutionWeight() {
 
         return solutionWeight;
@@ -167,6 +167,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         //should be 0 if result was TIMEOUT or UNSOLVABLE
 
     }
+
     public int numStatesExplored() {
         return numStatesExplored;
 
@@ -174,6 +175,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         //should be the number of states explored so far if result was TIMEOUT or UNSOLVABLE
 
     }
+
     public double explorationTime() {
         return timeSpent;
 
