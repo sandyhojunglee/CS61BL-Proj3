@@ -14,14 +14,13 @@ import java.util.*;
  * An augmented graph that is more powerful that a standard StreetMapGraph.
  * Specifically, it supports the following additional operations:
  *
- *
  * @author Alan Yao, Josh Hug, ________
  */
 public class AugmentedStreetMapGraph extends StreetMapGraph {
     WeirdPointSet weird;
-    Map<Point,Node> nodePoint;
+    Map<Point, Node> nodePoint;
     MyTrieSet locations;
-    Map<String, List<String>>  cleanToUnclean;
+    Map<String, List<String>> cleanToUnclean;
     List<String> listOfNames;
     Map<String, Node> nameNode;
 
@@ -77,6 +76,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     /**
      * For Project Part II
      * Returns the vertex closest to the given longitude and latitude.
+     *
      * @param lon The target longitude.
      * @param lat The target latitude.
      * @return The id of the node in the graph closest to the target.
@@ -93,6 +93,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     /**
      * For Project Part III (extra credit)
      * In linear time, collect all the names of OSM locations that prefix-match the query string.
+     *
      * @param prefix Prefix string to be searched for. Could be any case, with our without
      *               punctuation.
      * @return A <code>List</code> of the full names of locations whose cleaned name matches the
@@ -119,6 +120,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * For Project Part III (extra credit)
      * Collect all locations that match a cleaned <code>locationName</code>, and return
      * information about each node that matches.
+     *
      * @param locationName A full name of a location searched for.
      * @return A list of locations whose cleaned name matches the
      * cleaned <code>locationName</code>, and each location is a map of parameters for the Json
@@ -133,7 +135,6 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
 
         String cleanedLocationName = cleanString(locationName);
         List<String> cleaned = locations.keysWithPrefix(locationName);
-
 
 
         for (String location : cleaned) {
@@ -156,6 +157,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
     /**
      * Useful for Part III. Do not modify.
      * Helper to process strings into their "cleaned" form, ignoring punctuation and capitalization.
+     *
      * @param s Input string.
      * @return Cleaned string.
      */
