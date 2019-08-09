@@ -13,7 +13,6 @@ public class DistributionSorts {
             counts[arr[i]]++;
         }
 
-        int[] sorted = new int[arr.length];
         int[] starts = new int[counts.length];
         //counts[0] is always 0
         //put start indices
@@ -23,6 +22,8 @@ public class DistributionSorts {
             sum += counts[countIndex];
         }
 
+        int[] sorted = new int[arr.length];
+        
         for (int arrIndex = 0; arrIndex < arr.length; arrIndex++) {
             sorted[starts[arr[arrIndex]]] = arr[arrIndex];
             starts[arr[arrIndex]]++;
