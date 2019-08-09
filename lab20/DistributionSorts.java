@@ -23,7 +23,7 @@ public class DistributionSorts {
         }
 
         int[] sorted = new int[arr.length];
-        
+
         for (int arrIndex = 0; arrIndex < arr.length; arrIndex++) {
             sorted[starts[arr[arrIndex]]] = arr[arrIndex];
             starts[arr[arrIndex]]++;
@@ -48,22 +48,24 @@ public class DistributionSorts {
        rightmost digit of each number. */
     private static void countingSortOnDigit(int[] arr, int digit) {
         int[] counts = new int[10];
-        int[] unsorted = new int[arr.length];
-        System.arraycopy(arr, 0, unsorted, 0, arr.length);
-        int[] starts = new int[counts.length];
 
         for (int i = 0; i < arr.length; i++) {
             int divide = (int) Math.pow(10, digit + 1);
-            int floor1 = Math.floorMod(unsorted[i], divide);
+            int floor1 = Math.floorMod(arr[i], divide);
             int o = (int) (floor1 / Math.pow(10, digit));
             counts[o]++;
         }
+
+        int[] starts = new int[counts.length];
 
         int sum = counts[0];
         for (int countIndex = 1; countIndex < counts.length; countIndex++) {
             starts[countIndex] = sum;
             sum += counts[countIndex];
         }
+
+        int[] unsorted = new int[arr.length];
+        System.arraycopy(arr, 0, unsorted, 0, arr.length);
 
         for (int arrIndex = 0; arrIndex < unsorted.length; arrIndex++) {
             int divide = (int) Math.pow(10, digit + 1);
