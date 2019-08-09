@@ -72,7 +72,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                     value1.add(node);
                     nameNode.put(cleanedName, value1);
                 } else {
-                    if (!value1.contains(cleanedName)) {
+                    if (!value1.contains(node)) {
                         value1.add(node);
                     }
                 }
@@ -146,24 +146,21 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
         List<Map<String, Object>> result = new ArrayList<>();
 
         String cleanedLocationName = cleanString(locationName);
-        List<String> cleaned = locations.keysWithPrefix(cleanedLocationName);
 
 
+        //List<String> loc = cleanToUnclean.get(location);
+        //for (String name : loc) {
+        List<Node> nodes = nameNode.get(cleanedLocationName);
 
-        for (String location : cleaned) {
-            //List<String> loc = cleanToUnclean.get(location);
-            //for (String name : loc) {
-                List<Node> nodes = nameNode.get(location);
-                for(Node node : nodes) {
-                    HashMap<String, Object> info = new HashMap<>();
-                    info.put("lat", node.lat());
-                    info.put("lon", node.lon());
-                    info.put("name", node.name());
-                    info.put("id", node.id());
-                    result.add(info);
-                }
-            //}
+        for (Node node : nodes) {
+            HashMap<String, Object> info = new HashMap<>();
+            info.put("lat", node.lat());
+            info.put("lon", node.lon());
+            info.put("name", node.name());
+            info.put("id", node.id());
+            result.add(info);
         }
+        //}
 
         return result;
     }
