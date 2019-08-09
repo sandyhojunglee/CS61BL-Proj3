@@ -72,7 +72,7 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                     value1.add(node);
                     nameNode.put(cleanedName, value1);
                 } else {
-                    if (!value1.contains(name)) {
+                    if (!value1.contains(cleanedName)) {
                         value1.add(node);
                     }
                 }
