@@ -71,9 +71,6 @@ public class DistributionSorts {
             int divide = (int) Math.pow(10, digit + 1);
             int floor = Math.floorMod(unsorted[arrIndex], divide);
             int d = (int) (floor / Math.pow(10, digit));
-            //System.out.println(d);
-            //System.out.println(starts[d]);
-
 
             arr[starts[d]] = unsorted[arrIndex];
             starts[d]++;
