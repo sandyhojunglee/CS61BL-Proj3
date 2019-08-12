@@ -1,3 +1,5 @@
+import com.sun.source.tree.Tree;
+
 import java.util.*;
 
 /* A mutable and finite Graph object. Edge labels are stored via a HashMap
@@ -125,15 +127,16 @@ public class Graph {
 
     public Graph kruskals() {
         // TODO: YOUR CODE HERE
-        Graph result = new Graph();
+        Graph result = new Graph;
+        result.neighbors = this.neighbors;
         TreeSet<Edge> sortedEdgeTSet = getAllEdges();
         ArrayList<Edge> sortedEdge = new ArrayList();
         for (int i = 0; i < sortedEdgeTSet.size(); i++) {
             sortedEdge.add(sortedEdgeTSet.pollFirst());
         }
-
-
-        while()
+        for (int i = 0; i < sortedEdge.size(); i++) {
+            
+        }
         return result;
     }
 }
