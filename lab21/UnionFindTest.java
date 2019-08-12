@@ -18,4 +18,20 @@ public class UnionFindTest {
         assertEquals(1, uf.sizeOf(2));
         assertFalse(uf.connected(2, 5));
     }
+
+    @Test
+    public void testSmallExample1() {
+        UnionFind uf = new UnionFind(9);
+        uf.union(2, 3);
+        uf.union(5, 7);
+        uf.union(3, 5);
+        assertEquals(2, uf.find(3));
+        uf.union(1, 8);
+        uf.union(7, 1);
+        uf.union(0, 6);
+        uf.union(6, 4);
+        assertEquals(2, uf.find(8));
+        assertEquals(0, uf.find(6));
+
+    }
 }

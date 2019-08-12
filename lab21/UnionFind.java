@@ -38,18 +38,21 @@ public class UnionFind {
        allowing for fast search-time. If invalid vertices are passed into this
        function, throw an IllegalArgumentException. */
     public int find(int v) {
+        if (v > id.length) {
+            throw new IllegalArgumentException();
+        }
         int root = id[v];
         int temp = id[v];
         while (root >= 0) {
             temp = root;
             root = id[root];
         } //path compression
-        while (root(v) != v && root(v) != temp) {
+        while (root(v) != v) {
             int newPoint = id[v];
-            id[v] = root;
+            id[v] = root(v);
             v = newPoint;
         }
-//no path compression yet
+
         if (temp < 0) {
             return v;
         }
@@ -62,8 +65,8 @@ public class UnionFind {
        with itself or vertices that are already connected should not change the
        structure. */
     public void union(int v1, int v2) {
-        int v1Root = root(v1);
-        int v2Root = root(v2);
+        int v1Root = find(v1);
+        int v2Root = find(v2);
 
         if (v1Root == v2Root) {
             return;
