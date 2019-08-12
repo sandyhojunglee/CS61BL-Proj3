@@ -1,9 +1,4 @@
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Queue;
-import java.util.ArrayDeque;
+import java.util.*;
 
 /* A mutable and finite Graph object. Edge labels are stored via a HashMap
    where labels are mapped to a key calculated by the following. The graph is
@@ -130,6 +125,15 @@ public class Graph {
 
     public Graph kruskals() {
         // TODO: YOUR CODE HERE
-        return null;
+        Graph result = new Graph();
+        TreeSet<Edge> sortedEdgeTSet = getAllEdges();
+        ArrayList<Edge> sortedEdge = new ArrayList();
+        for (int i = 0; i < sortedEdgeTSet.size(); i++) {
+            sortedEdge.add(sortedEdgeTSet.pollFirst());
+        }
+        
+
+        while()
+        return result;
     }
 }

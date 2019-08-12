@@ -1,17 +1,25 @@
 public class UnionFind {
 
     /* TODO: Add instance variables here. */
+    private int[] wqupc;
 
     /* Creates a UnionFind data structure holding N vertices. Initially, all
        vertices are in disjoint sets. */
     public UnionFind(int N) {
         // TODO: YOUR CODE HERE
+        wqupc = new int[N];
+        for (int i = 0; i < wqupc.length; i++) {
+            wqupc[i] = -1;
+        }
     }
 
     /* Returns the parent of V. If V is the root of a tree, returns the
        negative size of the tree for which V is the root. */
     public int parent(int v) {
         // TODO: YOUR CODE HERE
+        if (wqupc[v] > 0) {
+            return wqupc[wqupc[v]];
+        }
         return -1;
     }
 
@@ -20,7 +28,10 @@ public class UnionFind {
        function, throw an IllegalArgumentException. */
     public int find(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        if (wqupc[wqupc[v]] < 0) {
+            return wqupc[v];
+        }
+        return find(wqupc[v]);
     }
 
     /* Connects two elements V1 and V2 together. V1 and V2 can be any element,
