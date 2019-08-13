@@ -1,4 +1,3 @@
-import java.sql.ResultSet;
 import java.util.*;
 
 /* A mutable and finite Graph object. Edge labels are stored via a HashMap
@@ -197,6 +196,22 @@ public class Graph {
 
     public Graph kruskals() {
         Graph result = new Graph();
-        return null;
+        UnionFind disjointSet = new UnionFind(getAllVertices().size());
+        int edgeCount = 0;
+
+        TreeSet<Edge> sortedEdgeTSet = getAllEdges();
+        ArrayList<Edge> sortedEdge = new ArrayList();
+        for (int i = 0; i < sortedEdgeTSet.size(); i++) {
+            sortedEdge.add(sortedEdgeTSet.pollFirst());
+        }
+        while (edgeCount <= getAllVertices().size() - 1 && !sortedEdge.isEmpty()) {
+            Edge edge1 = sortedEdge.remove(0);
+            if (disjointSet.find(edge1.getSource()) != disjointSet.find(edge1.getDest())) {
+                disjointSet.union(edge1.getSource(), edge1.getDest());
+                edgeCount++;
+            }
+        }
+
+        return result;
     }
 }
