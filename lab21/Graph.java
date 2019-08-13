@@ -174,9 +174,7 @@ public class Graph {
                 }
                 visited.add(v);
             }
-
         }
-
         return result;
     }
 
