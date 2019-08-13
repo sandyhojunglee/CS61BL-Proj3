@@ -1,4 +1,14 @@
-import java.util.*;
+
+import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.Map;
+import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.HashMap;
 
 /* A mutable and finite Graph object. Edge labels are stored via a HashMap
    where labels are mapped to a key calculated by the following. The graph is
@@ -121,13 +131,9 @@ public class Graph {
     public Graph prims(int start) {
         //add edges to graph, but first vertex
         Graph result = new Graph();
-        //mapping between vertex number i and the Edge with minimum weight that connects vertex i to the MST
         Map<Integer, Edge> distFromTree = new HashMap<>();
         Set<Integer> visited = new HashSet<>();
 
-        //int[] distTo = new int[getAllVertices().size()];
-        //int[] visitedPred = new int[getAllVertices().size()];
-        //priority queue of vertices
         PriorityQueue<Integer> fringe = new PriorityQueue(new vertex_comparator(distFromTree));
 
 
@@ -138,14 +144,13 @@ public class Graph {
         //priority value of a particular vertex v will be
         // the weight of the shortest edge that connects v to T
 
-        //whenever we pop vertex v off the fringe, add the corresponding Edge that connects v to the MST that we are constructing
 
         fringe.add(start);
 
         while (!fringe.isEmpty()) {
             int v = fringe.poll();
 
-            if (!visited.contains(v)) {
+            if (!visited.contains(v)){
                 if (v != start) {
                     result.addEdge(distFromTree.get(v));
                 }
@@ -175,7 +180,6 @@ public class Graph {
     }
 
     private class vertex_comparator implements Comparator<Integer> {
-        //priority value of a particular vertex v will be the weight of the shortest edge that connects v to T
         Map<Integer, Edge> distTo;
 
         vertex_comparator(Map<Integer, Edge> x) {
