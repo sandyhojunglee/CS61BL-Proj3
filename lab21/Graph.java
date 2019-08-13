@@ -1,9 +1,5 @@
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Queue;
-import java.util.ArrayDeque;
+import java.sql.ResultSet;
+import java.util.*;
 
 /* A mutable and finite Graph object. Edge labels are stored via a HashMap
    where labels are mapped to a key calculated by the following. The graph is
@@ -124,12 +120,83 @@ public class Graph {
     }
 
     public Graph prims(int start) {
-        // TODO: YOUR CODE HERE
-        return null;
+        //add edges to graph, but first vertex
+        Graph result = new Graph();
+        //mapping between vertex number i and the Edge with minimum weight that connects vertex i to the MST
+        Map<Integer, Edge> distFromTree = new HashMap<>();
+        Set<Integer> visited = new HashSet<>();
+        int[] distTo = new int[getAllVertices().size()];
+        int[] visitedPred = new int[getAllVertices().size()];
+        //priority queue of vertices
+        PriorityQueue<Integer> fringe = new PriorityQueue(new vertex_comparator(distTo));
+
+
+        for (int i = 0; i < getAllVertices().size(); i++) {
+            distTo[i] = Integer.MAX_VALUE;
+
+        }
+        //priority queue contains all vertices that are not part of the graph
+        //priority value of a particular vertex v will be
+        // the weight of the shortest edge that connects v to T
+
+        //whenever we pop vertex v off the fringe, add the corresponding Edge that connects v to the MST that we are constructing
+
+
+        distTo[start] = 0;
+        //distFromTree.put(start, new Edge(start, start, 0));
+        visitedPred[start] = -1;
+        fringe.add(start);
+
+        while (!fringe.isEmpty()) {
+            int v = fringe.poll();
+            visited.add(v);
+            result.addVertex(v);
+
+            if (visited.size() == getAllVertices().size() -1) {
+                break;
+            }
+
+            //which one?
+            for (Edge edge : getEdges(v)) {
+                if (!visited.contains(edge.getDest())) {
+                    if (!distFromTree.containsKey(edge.getDest())) {
+                        distFromTree.put(edge.getDest(), edge);
+                    } else if (distFromTree.get(edge.getDest()).getWeight() < edge.getWeight()) {
+                        distFromTree.replace(edge.getDest(), edge);
+                    }
+
+                    if (edge.getWeight() + distFromTree.get(v).getWeight() < distFromTree.get(edge).getWeight()) {
+
+                    }
+                }
+                    result.addEdge(edge);
+                    fringe.add(edge.getDest());
+            }
+
+        }
+
+        return result;
+    }
+
+    private class vertex_comparator implements Comparator<Integer> {
+        //priority value of a particular vertex v will be the weight of the shortest edge that connects v to T
+        int[] distTo;
+
+        vertex_comparator(int[] x) {
+            distTo = x;
+        }
+
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            Integer a = distTo[o1];
+            Integer b = distTo[o2];
+            return a.compareTo(b);
+
+        }
     }
 
     public Graph kruskals() {
-        // TODO: YOUR CODE HERE
+        Graph result = new Graph();
         return null;
     }
 }
