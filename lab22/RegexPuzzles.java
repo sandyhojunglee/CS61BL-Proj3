@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,12 +14,26 @@ import java.util.regex.Pattern;
 public class RegexPuzzles {
     public static List<String> urlRegex(String[] urls) {
         // Create a String pattern to fill return array
-        return null;
+        List<String> result = new ArrayList <>();
+        String pattern = "\\(.*?(https?://(\\w+\\.)+[a-z]{2,3}/(\\w+\\.hyml)).*/\\)";
+        for (String s : urls) {
+            if (s.matches(pattern)) {
+                result.add(s);
+            }
+        }
+        return result;
     }
 
     public static List<String> findStartupName(String[] names) {
         // Create a String pattern to fill return array
-        return null;
+        List<String> result = new ArrayList <>();
+        String pattern = "(on|un|my|Data|App)([A-Za-hj-z]+)(ly|\\.io|\\.fm|\\.tv|sy|ify)";
+        for (String s : names) {
+          if (s.matches(pattern)) {
+              result.add(s);
+          }
+        }
+        return result;
     }
 
     public static BufferedImage imageRegex(String filename, int width, int height) {
@@ -29,14 +44,29 @@ public class RegexPuzzles {
             throw new RuntimeException("No such file found: " + filename);
         }
 
+        Pattern coordPattern = Pattern.compile("\\(([0-9]{0,3}), ([0-9]{0,3})\\)");
+        Pattern pixelPattern = Pattern.compile("\\[([0-9]{0,3}), ([0-9]{0,3}), ([0-9]{0,3})\\]");
+
+        int[][][] arr = new int[width][height][3];
+
         // Initialize both Patterns and 3-d array
         try {
             String line;
             while ((line = br.readLine()) != null) {
                 // Initialize both Matchers and find() for each
-
+                Matcher m1 = coordPattern.matcher(line);
+                Matcher m2 = pixelPattern.matcher(line);
+                m1.find();
+                m2.find();
+                int x = Integer.parseInt(m1.group(1));
+                int y = Integer.parseInt(m1.group(2));
+                int r = Integer.parseInt(m2.group(1));
+                int g = Integer.parseInt(m2.group(2));
+                int b = Integer.parseInt(m2.group(3));
                 // Parse each group as an Integer
-
+                arr[x][y][0] = r;
+                arr[x][y][1] = g;
+                arr[x][y][2] = b;
                 // Store in array
             }
         } catch (IOException e) {
