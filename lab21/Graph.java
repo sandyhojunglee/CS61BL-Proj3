@@ -9,37 +9,37 @@ import java.util.*;
 public class Graph {
 
     /* Maps vertices to a list of its neighboring vertices. */
-    private HashMap<Integer, Set<Integer>> neighbors = new HashMap<>();
+    private HashMap <Integer, Set <Integer>> neighbors = new HashMap <>();
     /* Maps vertices to a list of its connected edges. */
-    private HashMap<Integer, Set<Edge>> edges = new HashMap<>();
+    private HashMap <Integer, Set <Edge>> edges = new HashMap <>();
     /* A sorted set of all edges. */
-    private TreeSet<Edge> allEdges = new TreeSet<>();
+    private TreeSet <Edge> allEdges = new TreeSet <>();
 
     /* Returns the vertices that neighbor V. */
-    public TreeSet<Integer> getNeighbors(int v) {
-        return new TreeSet<Integer>(neighbors.get(v));
+    public TreeSet <Integer> getNeighbors(int v) {
+        return new TreeSet <Integer>(neighbors.get(v));
     }
 
     /* Returns all edges adjacent to V. */
-    public TreeSet<Edge> getEdges(int v) {
-        return new TreeSet<Edge>(edges.get(v));
+    public TreeSet <Edge> getEdges(int v) {
+        return new TreeSet <Edge>(edges.get(v));
     }
 
     /* Returns a sorted list of all vertices. */
-    public TreeSet<Integer> getAllVertices() {
-        return new TreeSet<Integer>(neighbors.keySet());
+    public TreeSet <Integer> getAllVertices() {
+        return new TreeSet <Integer>(neighbors.keySet());
     }
 
     /* Returns a sorted list of all edges. */
-    public TreeSet<Edge> getAllEdges() {
-        return new TreeSet<Edge>(allEdges);
+    public TreeSet <Edge> getAllEdges() {
+        return new TreeSet <Edge>(allEdges);
     }
 
     /* Adds vertex V to the graph. */
     public void addVertex(Integer v) {
         if (neighbors.get(v) == null) {
-            neighbors.put(v, new HashSet<Integer>());
-            edges.put(v, new HashSet<Edge>());
+            neighbors.put(v, new HashSet <Integer>());
+            edges.put(v, new HashSet <Edge>());
         }
     }
 
@@ -75,12 +75,12 @@ public class Graph {
 
     /* Returns if this graph spans G. */
     public boolean spans(Graph g) {
-        TreeSet<Integer> all = getAllVertices();
+        TreeSet <Integer> all = getAllVertices();
         if (all.size() != g.getAllVertices().size()) {
             return false;
         }
-        Set<Integer> visited = new HashSet<>();
-        Queue<Integer> vertices = new ArrayDeque<>();
+        Set <Integer> visited = new HashSet <>();
+        Queue <Integer> vertices = new ArrayDeque <>();
         Integer curr;
 
         vertices.add(all.first());
@@ -127,15 +127,15 @@ public class Graph {
 
     public Graph kruskals() {
         // TODO: YOUR CODE HERE
-        Graph result = new Graph;
+        Graph result = new Graph();
         result.neighbors = this.neighbors;
-        TreeSet<Edge> sortedEdgeTSet = getAllEdges();
-        ArrayList<Edge> sortedEdge = new ArrayList();
+        TreeSet <Edge> sortedEdgeTSet = getAllEdges();
+        ArrayList <Edge> sortedEdge = new ArrayList();
         for (int i = 0; i < sortedEdgeTSet.size(); i++) {
             sortedEdge.add(sortedEdgeTSet.pollFirst());
         }
         for (int i = 0; i < sortedEdge.size(); i++) {
-            
+            System.out.println("ads");
         }
         return result;
     }
