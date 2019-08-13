@@ -74,7 +74,7 @@ public class RegexPuzzles {
             System.exit(1);
         }
         // Return the BufferedImage of the array
-        return null;
+        return arrayToBufferedImage(arr);
     }
 
     public static BufferedImage arrayToBufferedImage(int[][][] arr) {
