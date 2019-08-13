@@ -12,9 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexPuzzles {
-    public static List <String> urlRegex(String[] urls) {
+    public static List<String> urlRegex(String[] urls) {
         // Create a String pattern to fill return array
-        List <String> result = new ArrayList <>();
+        List<String> result = new ArrayList<>();
         String pattern = "\\(.*?(https?://(\\w+\\.)+[a-z]{2,3}/(\\w+\\.hyml)).*/\\)";
         for (String s : urls) {
             if (s.matches(pattern)) {
@@ -24,9 +24,9 @@ public class RegexPuzzles {
         return result;
     }
 
-    public static List <String> findStartupName(String[] names) {
+    public static List<String> findStartupName(String[] names) {
         // Create a String pattern to fill return array
-        List <String> result = new ArrayList <>();
+        List<String> result = new ArrayList<>();
         String pattern = "(on|un|my|Data|App)([A-Za-hj-z]+)(ly|\\.io|\\.fm|\\.tv|sy|ify)";
         for (String s : names) {
             if (s.matches(pattern)) {
