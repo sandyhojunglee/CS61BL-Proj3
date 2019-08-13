@@ -134,7 +134,7 @@ public class Graph {
         Map<Integer, Edge> distFromTree = new HashMap<>();
         Set<Integer> visited = new HashSet<>();
 
-        PriorityQueue<Integer> fringe = new PriorityQueue(new vertex_comparator(distFromTree));
+        PriorityQueue<Integer> fringe = new PriorityQueue(new Vertex_comparator(distFromTree));
 
 
         for (Integer i : getAllVertices()) {
@@ -150,7 +150,7 @@ public class Graph {
         while (!fringe.isEmpty()) {
             int v = fringe.poll();
 
-            if (!visited.contains(v)){
+            if (!visited.contains(v)) {
                 if (v != start) {
                     result.addEdge(distFromTree.get(v));
                 }
@@ -165,7 +165,8 @@ public class Graph {
                             distFromTree.put(edge.getDest(), edge);
                             fringe.add(edge.getDest());
 
-                        } else if (distFromTree.get(edge.getDest()).getWeight() > edge.getWeight()) {
+                        } else if (distFromTree.get(edge.getDest()).getWeight()
+                                > edge.getWeight()) {
                             distFromTree.replace(edge.getDest(), edge);
                             fringe.add(edge.getDest());
                         }
@@ -179,10 +180,10 @@ public class Graph {
         return result;
     }
 
-    private class vertex_comparator implements Comparator<Integer> {
+    private class Vertex_comparator implements Comparator<Integer> {
         Map<Integer, Edge> distTo;
 
-        vertex_comparator(Map<Integer, Edge> x) {
+        Vertex_comparator(Map<Integer, Edge> x) {
             distTo = x;
         }
 
