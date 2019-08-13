@@ -61,6 +61,9 @@ public class GraphTest {
     public void testMultiEdgeGraph() {
         Graph input = loadFromText("inputs/graphTestMultiEdge.in");
         Graph output = loadFromText("outputs/graphTestMultiEdge.out");
+//        Graph x = input.prims(0);
+//        System.out.println(x.getAllEdges());
+//        System.out.println(output.getAllEdges());
         assertEquals("Prim's algorithm failed on graphTestMultiEdge.", output, input.prims(0));
         assertEquals("Kruskal's algorithm failed on graphTestMultiEdge.", output, input.kruskals());
     }
@@ -69,6 +72,9 @@ public class GraphTest {
     public void testNormalGraph() {
         Graph input = loadFromText("inputs/graphTestNormal.in");
         Graph output = loadFromText("outputs/graphTestNormal.out");
+//        Graph x = input.kruskals();
+//        System.out.println(x.getAllEdges());
+//        System.out.println(output.getAllEdges());
         assertEquals("Prim's algorithm failed on graphTestNormal.", output, input.prims(0));
         assertEquals("Kruskal's algorithm failed on graphTestNormal.", output, input.kruskals());
     }
