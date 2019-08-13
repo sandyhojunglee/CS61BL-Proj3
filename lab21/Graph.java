@@ -134,7 +134,7 @@ public class Graph {
         Map<Integer, Edge> distFromTree = new HashMap<>();
         Set<Integer> visited = new HashSet<>();
 
-        PriorityQueue<Integer> fringe = new PriorityQueue(new Vertex_comparator(distFromTree));
+        PriorityQueue<Integer> fringe = new PriorityQueue(new VertexComparator(distFromTree));
 
 
         for (Integer i : getAllVertices()) {
@@ -180,10 +180,10 @@ public class Graph {
         return result;
     }
 
-    private class Vertex_comparator implements Comparator<Integer> {
+    private class VertexComparator implements Comparator<Integer> {
         Map<Integer, Edge> distTo;
 
-        Vertex_comparator(Map<Integer, Edge> x) {
+        VertexComparator(Map<Integer, Edge> x) {
             distTo = x;
         }
 
