@@ -124,15 +124,15 @@ public class Graph {
         //mapping between vertex number i and the Edge with minimum weight that connects vertex i to the MST
         Map<Integer, Edge> distFromTree = new HashMap<>();
         Set<Integer> visited = new HashSet<>();
-        int[] distTo = new int[getAllVertices().size()];
-        int[] visitedPred = new int[getAllVertices().size()];
+
+        //int[] distTo = new int[getAllVertices().size()];
+        //int[] visitedPred = new int[getAllVertices().size()];
         //priority queue of vertices
-        PriorityQueue<Integer> fringe = new PriorityQueue(new vertex_comparator(distTo));
+        PriorityQueue<Integer> fringe = new PriorityQueue(new vertex_comparator(distFromTree));
 
 
-        for (int i = 0; i < getAllVertices().size(); i++) {
-            distTo[i] = Integer.MAX_VALUE;
-
+        for (Integer i : getAllVertices()) {
+            result.addVertex(i);
         }
         //priority queue contains all vertices that are not part of the graph
         //priority value of a particular vertex v will be
@@ -140,36 +140,33 @@ public class Graph {
 
         //whenever we pop vertex v off the fringe, add the corresponding Edge that connects v to the MST that we are constructing
 
-
-        distTo[start] = 0;
-        //distFromTree.put(start, new Edge(start, start, 0));
-        visitedPred[start] = -1;
         fringe.add(start);
 
         while (!fringe.isEmpty()) {
             int v = fringe.poll();
-            visited.add(v);
-            result.addVertex(v);
 
-            if (visited.size() == getAllVertices().size() -1) {
-                break;
-            }
+            if (!visited.contains(v)) {
+                if (v != start) {
+                    result.addEdge(distFromTree.get(v));
+                }
 
-            //which one?
-            for (Edge edge : getEdges(v)) {
-                if (!visited.contains(edge.getDest())) {
-                    if (!distFromTree.containsKey(edge.getDest())) {
-                        distFromTree.put(edge.getDest(), edge);
-                    } else if (distFromTree.get(edge.getDest()).getWeight() < edge.getWeight()) {
-                        distFromTree.replace(edge.getDest(), edge);
-                    }
+                if (result.getAllEdges().size() == getAllVertices().size() - 1) {
+                    break;
+                }
 
-                    if (edge.getWeight() + distFromTree.get(v).getWeight() < distFromTree.get(edge).getWeight()) {
+                for (Edge edge : getEdges(v)) {
+                    if (!visited.contains(edge.getDest())) {
+                        if (!distFromTree.containsKey(edge.getDest())) {
+                            distFromTree.put(edge.getDest(), edge);
+                            fringe.add(edge.getDest());
 
+                        } else if (distFromTree.get(edge.getDest()).getWeight() > edge.getWeight()) {
+                            distFromTree.replace(edge.getDest(), edge);
+                            fringe.add(edge.getDest());
+                        }
                     }
                 }
-                    result.addEdge(edge);
-                    fringe.add(edge.getDest());
+                visited.add(v);
             }
 
         }
@@ -179,16 +176,16 @@ public class Graph {
 
     private class vertex_comparator implements Comparator<Integer> {
         //priority value of a particular vertex v will be the weight of the shortest edge that connects v to T
-        int[] distTo;
+        Map<Integer, Edge> distTo;
 
-        vertex_comparator(int[] x) {
+        vertex_comparator(Map<Integer, Edge> x) {
             distTo = x;
         }
 
         @Override
         public int compare(Integer o1, Integer o2) {
-            Integer a = distTo[o1];
-            Integer b = distTo[o2];
+            Integer a = distTo.get(o1).getWeight();
+            Integer b = distTo.get(o2).getWeight();
             return a.compareTo(b);
 
         }
@@ -196,22 +193,28 @@ public class Graph {
 
     public Graph kruskals() {
         Graph result = new Graph();
+        for (Integer i : getAllVertices()) {
+            result.addVertex(i);
+        }
+
         UnionFind disjointSet = new UnionFind(getAllVertices().size());
         int edgeCount = 0;
 
-        TreeSet<Edge> sortedEdgeTSet = getAllEdges();
         ArrayList<Edge> sortedEdge = new ArrayList();
-        for (int i = 0; i < sortedEdgeTSet.size(); i++) {
-            sortedEdge.add(sortedEdgeTSet.pollFirst());
+
+        for (Edge edge : getAllEdges()) {
+            sortedEdge.add(edge);
         }
-        while (edgeCount <= getAllVertices().size() - 1 && !sortedEdge.isEmpty()) {
+
+        while (edgeCount < getAllVertices().size() - 1 && !sortedEdge.isEmpty()) {
+
             Edge edge1 = sortedEdge.remove(0);
             if (disjointSet.find(edge1.getSource()) != disjointSet.find(edge1.getDest())) {
                 disjointSet.union(edge1.getSource(), edge1.getDest());
+                result.addEdge(edge1);
                 edgeCount++;
             }
         }
-
         return result;
     }
 }
